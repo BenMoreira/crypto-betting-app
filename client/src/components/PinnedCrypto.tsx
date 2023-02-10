@@ -1,5 +1,5 @@
 import React from 'react'
-import {AiOutlinePushpin} from 'react-icons/ai';
+import {AiFillPushpin} from 'react-icons/ai';
 
 const PinnedCrypto = () => {
   return (
@@ -14,12 +14,11 @@ const PinnedCrypto = () => {
         </div>
 
         <div className='text-coal-200'>
-          <AiOutlinePushpin />
+          <AiFillPushpin className='w-4 h-4'/>
         </div>
       </div>
 
       <div className='bg-coal-800 h-[80%] rounded-lg'>
-        Chart
       </div>
     </div>
   )

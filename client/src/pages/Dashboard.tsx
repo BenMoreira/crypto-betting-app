@@ -13,7 +13,7 @@ export const Dashboard = () => {
       </div>
 
       <div className='bg-coal-900 mx-10 rounded-xl'>
-        <div className='text-coal-500 text-2xl p-5'>
+        <div className='text-coal-200 text-2xl p-5'>
           Pinned Cryptos
 
             <div className='grid grid-cols-6 py-5'>
@@ -26,6 +26,17 @@ export const Dashboard = () => {
             </div>
         </div>
       </div>
+
+      <div className='bg-coal-900 mx-10 rounded-xl mt-10'>
+        <div className='text-coal-200 text-2xl p-5'>
+          Active Wagers
+
+          <div className='bg-coal-800 w-100% h-[40vh]'>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   )
 }
