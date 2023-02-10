@@ -11,7 +11,7 @@ export const Navbar = () => {
          return <NavOption path={option}/>
         }) 
         }
-        )
+        
         </div>
     </nav>
   )
