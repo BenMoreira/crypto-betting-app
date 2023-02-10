@@ -16,7 +16,6 @@ export const Dashboard = () => {
         <div className='text-coal-500 text-2xl p-5'>
           Pinned Cryptos
 
-          <div className='flex flex-col justify-center'>
             <div className='grid grid-cols-6 py-5'>
               <PinnedCrypto />
               <PinnedCrypto />
@@ -25,7 +24,6 @@ export const Dashboard = () => {
               <PinnedCrypto />
               <PinnedCrypto />
             </div>
-          </div>
         </div>
       </div>
     </div>
