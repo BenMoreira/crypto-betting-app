@@ -16,6 +16,7 @@ export const Dashboard = () => {
         <div className='text-coal-200 text-2xl p-5'>
           Pinned Cryptos
 
+
             <div className='grid grid-cols-6 py-5'>
               <PinnedCrypto />
               <PinnedCrypto />
