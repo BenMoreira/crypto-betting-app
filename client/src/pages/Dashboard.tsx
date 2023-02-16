@@ -32,7 +32,7 @@ export const Dashboard = () => {
         <div className='text-coal-200 text-2xl p-5'>
           Active Wagers
 
-          <div className='bg-coal-800 w-100% h-[40vh]'>
+          <div className='bg-coal-800 w-100% h-[40vh] rounded-xl'>
           </div>
 
         </div>
