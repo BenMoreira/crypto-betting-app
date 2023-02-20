@@ -13,12 +13,12 @@ export const Cryptos = () => {
 
       <div className='bg-coal-900 mx-10 rounded-xl pb-5'>
         <div className='flex flex-row justify-between'>
-          <div className='text-coal-200 text-2xl p-5'>
+          <div className='text-coal-200 text-2xl p-5 pt-7'>
             Cryptocurrencies
           </div>
 
           <div className='m-5'>
-            <input className='bg-coal-700 text-coal-200 text-2xl p-3 rounded-xl' placeholder='Search'/>
+            <input className='bg-coal-700 text-coal-200 text-xl p-3 rounded-xl' placeholder='Search'/>
           </div>
         </div>
 
