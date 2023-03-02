@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Account from '../components/Account';
 import PinnedCrypto from '../components/PinnedCrypto';
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const Dashboard = () => {
+
+  const { user, isAuthenticated} = useAuth0();
+
+  useEffect(()=>{console.log(user)},[user]);
+
   return (
     <div className='bg-coal-800 w-full min-h-screen max-h-full pb-3'>
       <div className='flex flex-row justify-between px-10 py-10 text-3xl'>
         <div className='text-blue-300 font-light'>
-        Dashboard
+        Dashboard 
         </div>
         <Account />
       </div>

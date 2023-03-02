@@ -1,5 +1,6 @@
 import React from 'react'
 import NavOption from './NavOption'
+import LoginButton from '../components/LoginButton'
 
 export const Navbar = () => {
 
@@ -11,7 +12,7 @@ export const Navbar = () => {
          return <NavOption path={option}/>
         }) 
         }
-        
+        <LoginButton />
         </div>
     </nav>
   )

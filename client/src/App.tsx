@@ -11,20 +11,21 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!["/Dashboard", "/Leaderboard", "/Cryptos"].includes(location.pathname)){
-      navigate("/Dashboard");
-    }
-  }, [location])
+  // useEffect(()=>{
+  //   if(!["/Dashboard", "/Leaderboard", "/Cryptos"].includes(location.pathname)){
+  //     navigate("/Dashboard");
+  //   }
+  // }, [location])
 
   return (
     <div className='flex flex-row'>
       <Navbar />
       <div className='w-[calc(100vw-200px)] ml-[200px] h-full'>
       <Routes>
-        <Route path="/" element={<Dashboard/>}/>
+        <Route path="/Dashboard" element={<Dashboard/>}/>
         <Route path="/leaderboard" element={<Leaderboard/>}/>
         <Route path="/cryptos" element={<Cryptos/>}/>
+        <Route path="/" element={<Dashboard/>}/>
         <Route path="/*" element={<Dashboard/>}/>
       </Routes>
       </div>

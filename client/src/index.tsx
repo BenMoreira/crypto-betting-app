@@ -6,6 +6,8 @@ import {BrowserRouter as Router } from 'react-router-dom'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { Auth0Provider } from "@auth0/auth0-react";
+
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -14,7 +16,17 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <Auth0Provider
+          domain="dev-taqde1wo0e85onle.us.auth0.com"
+          clientId="UfCO40es2GYzsdqBjbeF3uHNibL1hELG"
+          authorizationParams={{
+            redirect_uri: window.location.origin
+          }}
+          useRefreshTokens
+          cacheLocation="localstorage"
+        >
+          <App />
+        </Auth0Provider>
       </Router>
     </Provider>
   </React.StrictMode>
