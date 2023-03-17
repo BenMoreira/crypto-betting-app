@@ -1,5 +1,6 @@
 import React from 'react'
 import Account from '../components/Account'
+import Coin from '../components/Coin'
 
 export const Cryptos = () => {
   return (
@@ -31,6 +32,7 @@ export const Cryptos = () => {
         <div className='flex flex-row justify-between'>
           <div className='text-coal-200 text-2xl p-5'>
             Crypto Chart
+            <Coin />
           </div>
         </div>
 
