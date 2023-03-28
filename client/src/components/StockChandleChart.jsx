@@ -39,7 +39,7 @@ const StockCandleChart = ({data, ...props}) => {
             },
         series: [
           {
-            type: 'candlestick',
+            type: 'ohlc',
             upColor: "green",
             color: "#FF2D00",
             data: data, 
