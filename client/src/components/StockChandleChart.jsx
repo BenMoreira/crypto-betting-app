@@ -51,14 +51,18 @@ const StockCandleChart = ({data, ...props}) => {
              },
           }
         ],
-        tooltip: { enabled: false },
+        tooltip: { 
+          enabled: true,
+          headerFormat: "", //Header is currently empty, if taken off utc time is shown
+        },
         yAxis:{
             title:{text:undefined},
             softMin: data[1] * 0.95,
             softMax: data[1] * 1.05,
+            gridLineColor: "#212121",
         },
         xAxis:[{
-            
+            lineColor: "#212121",
             title:{text:undefined},
             labels:{
                formatter:function(){
