@@ -12,7 +12,7 @@ const Gecko = () => {
         //ohlc data from X days away
         //time in UNIX
         //open, high, low, close
-        let call = fetch("https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30");
+        let call = fetch("https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=1");
         return call;
 
     }

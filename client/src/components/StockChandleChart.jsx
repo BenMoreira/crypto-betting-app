@@ -21,8 +21,8 @@ const StockCandleChart = ({data, ...props}) => {
             },
             backgroundColor:"black",
           type: "candlestick",
-          height:500,
-          width:750,
+          height:200,
+          width:250,
           //margin: [0, 0, 0, 0],
           styledMode: false,
           animation:{
@@ -32,9 +32,9 @@ const StockCandleChart = ({data, ...props}) => {
         noData:{},
         loading:{},
         legend:{enabled:false},
-        title:{text:undefined,
+        title:{text:"Bitcoin",
             style: {
-                color: '#FF00FF',
+                color: '#84CAF5',
                 fontWeight: 'bold'}
             },
         series: [
