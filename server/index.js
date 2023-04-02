@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose')
 const UserModel = require('./models/User')
 const WagerModel = require('./models/Wager')
+const CoinModel = require('./models/Coin')
 const BetModel = require('./models/Bet')
 //connect Express' backend to React's frontend
 const cors = require('cors');
@@ -44,6 +45,23 @@ app.post("/newWager", async (req, res)=>{
     res.json(ok);
 });
 
+
+app.post("/saveCoin", async (req, res)=>{
+    // const call = fetch("https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30");
+    // //call.then((response)=>{res.json(response.json())});
+    // res.json(call);
+    let coin = new CoinModel({crypto:"btc", price:69});
+    coin.save();
+    res.json(coin);
+    //const newCoin = new CoinModel({crypto: "btc", price:});
+    //   const newInquiry = new InquiryModel(inquiry);
+
+    //   await newInquiry.save();
+    
+    //   res.json(inquiry);
+    //call.then(response => response.json().then(result => {result.save()}));
+    //res.json(call);
+})
 
 // app.post("/createUser", async (req, res) =>{
 //     await lol.save();
@@ -97,6 +115,29 @@ app.post("/newWager", async (req, res)=>{
 //       });
 // });
 
+
+
+
+var requestLoop = setInterval(function(){
+        // app.post("/saveCoin", async (req, res)=>{
+        //     // const call = fetch("https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30");
+        //     // //call.then((response)=>{res.json(response.json())});
+        //     // res.json(call);
+            let coin = new CoinModel({crypto:"btc", price:69});
+            // coin.save();
+            //res.json(coin);
+            //const newCoin = new CoinModel({crypto: "btc", price:});
+            //   const newInquiry = new InquiryModel(inquiry);
+        
+            //   await newInquiry.save();
+            
+            //   res.json(inquiry);
+            //call.then(response => response.json().then(result => {result.save()}));
+              //res.json(call);
+            // });
+      }, 1000);
+
+      // If you ever want to stop it...  clearInterval(requestLoop)
 
 app.listen(3001, ()=>{
   console.log("SERVER RUNNING ON PORT 3001");

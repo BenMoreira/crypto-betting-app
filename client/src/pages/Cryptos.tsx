@@ -28,18 +28,13 @@ export const Cryptos = () => {
         </div>
       </div>
 
-      <div className='bg-coal-900 mx-10 rounded-xl pb-5 mt-10'>
-        <div className='flex flex-row justify-between'>
-          <div className='text-coal-200 text-2xl p-5'>
-            Crypto Chart
+      
+
+        <div className='p-5 mx-5 rounded-x'>
+          <div className='rounded-xl w-100% bg-coal-900'>
             <Coin />
           </div>
         </div>
-
-        <div className='bg-coal-800 w-100% h-[20vh] mx-5 rounded-xl'>
-          
-        </div>
-      </div>
 
       <div className='bg-coal-900 mx-10 rounded-xl py-5 mt-10'>
         <div className='bg-coal-800 w-100% h-[10vh] mx-5 rounded-xl'>

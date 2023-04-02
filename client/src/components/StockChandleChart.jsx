@@ -19,10 +19,10 @@ const StockCandleChart = ({data, ...props}) => {
                 setTimeout(this.hideLoading.bind(this), 1000);
             }
             },
-            backgroundColor:"black",
+            backgroundColor:"transparent",
           type: "candlestick",
-          height:200,
-          width:250,
+          height:500,
+          //width:"100%",
           //margin: [0, 0, 0, 0],
           styledMode: false,
           animation:{
@@ -39,10 +39,13 @@ const StockCandleChart = ({data, ...props}) => {
             },
         series: [
           {
-            type: 'ohlc',
-            upColor: "green",
-            color: "#FF2D00",
+            type: 'candlestick',
+            lineColor:"white",
+            upColor: "#84CAF5",
+            color: "white",
             data: data, 
+            pointWidth:10,
+            lineWidth:0.75,
             marker: {
                 enabled: false,
                 states:{
@@ -53,6 +56,11 @@ const StockCandleChart = ({data, ...props}) => {
         ],
         tooltip: { 
           enabled: true,
+          backgroundColor: 'black',
+          style: {
+            color: 'white',
+            fontWeight: 'bold'
+          },
           headerFormat: "", //Header is currently empty, if taken off utc time is shown
         },
         yAxis:{
@@ -66,7 +74,8 @@ const StockCandleChart = ({data, ...props}) => {
             title:{text:undefined},
             labels:{
                formatter:function(){
-                   return Highcharts.dateFormat('%d %m %Y',this.value);
+                    return Highcharts.dateFormat('%l:%M %p',this.value);
+                   //return Highcharts.dateFormat('%d %m %Y',this.value);
                }
             }
           }],
@@ -80,49 +89,10 @@ const StockCandleChart = ({data, ...props}) => {
                 }
             },
         },
-        // defs: {
-        //     glow: {
-        //         tagName: 'filter',
-        //         id: 'glow',
-        //         opacity: 0.5,
-        //         children: [{
-        //             tagName: 'feGaussianBlur',
-        //             result: 'coloredBlur',
-        //             stdDeviation: 2.5
-        //         }, {
-        //             tagName: 'feMerge',
-        //             children: [{
-        //                 tagName: 'feMergeNode',
-        //                 in: 'coloredBlur'
-        //             }, {
-        //                 tagName: 'feMergeNode',
-        //                 in: 'SourceGraphic'
-        //             }]
-        //         }]
-        //     }
-        // },
         credits:{enabled:false}
         
       };
 
-    //   const options2 = {
-    //     chart: {
-    //         events: {
-    //         load() {
-    //             this.showLoading();
-    //             setTimeout(this.hideLoading.bind(this), 1000);
-    //         }
-    //         },
-    //       //type: "candlestick",
-    //       height:500,
-    //       width:500,
-    //       //margin: [0, 0, 0, 0],
-    //       styledMode: true,
-    //       animation:{
-    //         duration : 10
-    //       }
-    //     }
-    // }
 
   return (
     
