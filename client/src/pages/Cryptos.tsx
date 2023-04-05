@@ -1,6 +1,7 @@
 import React from 'react'
 import Account from '../components/Account'
 import Coin from '../components/Coin'
+import CrypDisp from '../components/CrypDisp'
 
 export const Cryptos = () => {
   return (
@@ -24,7 +25,7 @@ export const Cryptos = () => {
         </div>
 
         <div className='bg-coal-800 w-100% h-[20vh] mx-5 rounded-xl'>
-          
+          <CrypDisp />
         </div>
       </div>
 
