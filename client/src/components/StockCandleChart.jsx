@@ -5,10 +5,10 @@ import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
 
 NoDataToDisplay(Highcharts);
 
-const StockCandleChart = ({data, ...props}) => {
+const StockCandleChart = ({data, coinToView, viewType,...props}) => {
 
     useEffect(()=>{
-        console.log(data);
+        //console.log(data);
     })
 
       const options = {
@@ -26,25 +26,25 @@ const StockCandleChart = ({data, ...props}) => {
           //margin: [0, 0, 0, 0],
           styledMode: false,
           animation:{
-            duration : 10
+            duration : 250
           }
         },
         noData:{},
         loading:{},
         legend:{enabled:false},
-        title:{text:"Bitcoin",
+        title:{text:coinToView.charAt(0).toUpperCase() + coinToView.slice(1).toLowerCase(),
             style: {
                 color: '#84CAF5',
                 fontWeight: 'bold'}
             },
         series: [
           {
-            type: 'candlestick',
+            type: "candlestick",
             lineColor:"white",
             upColor: "#84CAF5",
             color: "white",
             data: data, 
-            pointWidth:10,
+            pointWidth:viewType === 0 ? 15 : 10,
             lineWidth:0.75,
             marker: {
                 enabled: false,

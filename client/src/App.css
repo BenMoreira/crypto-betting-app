@@ -2,3 +2,24 @@ body{
     overflow-x:hidden !important;
     font-family: 'Roboto', sans-serif !important;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #303030;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #84CAF5;
+    border-radius:10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #737373;
+  }
