@@ -12,6 +12,8 @@ const { ObjectId } = require("mongodb");
 var mongodb = require('mongodb');
 
 
+ 
+
 //express can auto parse JSON body
 app.use(express.json());
 //use cors for connecting front and back end
@@ -115,27 +117,83 @@ app.post("/saveCoin", async (req, res)=>{
 //       });
 // });
 
+app.get("/getCoins", async (req, res)=>{
+    let c =  await CoinModel.find({});
+    res.send(c);
+
+})
+
+app.get("/getCoin", async (req, res)=>{
+    let c =  await CoinModel.findOne({crypto : req.query.cryptoName});
+    res.send(c);
+
+})
 
 
+async function getShortTermOHLC(coinName){
+    let call = await fetch("https://api.coingecko.com/api/v3/coins/"+coinName+"/ohlc?vs_currency=usd&days=1");
+    return call.json().then(res => {return res});
+}
 
-var requestLoop = setInterval(function(){
-        // app.post("/saveCoin", async (req, res)=>{
-        //     // const call = fetch("https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30");
-        //     // //call.then((response)=>{res.json(response.json())});
-        //     // res.json(call);
-            let coin = new CoinModel({crypto:"btc", price:69});
-            // coin.save();
-            //res.json(coin);
-            //const newCoin = new CoinModel({crypto: "btc", price:});
-            //   const newInquiry = new InquiryModel(inquiry);
-        
-            //   await newInquiry.save();
+async function getLongTermOHLC(coinName){
+    let call = await fetch("https://api.coingecko.com/api/v3/coins/"+coinName+"/ohlc?vs_currency=usd&days=14");
+    return call.json().then(res => {return res});
+}
+async function getCurrentPrice(coinName){
+    let call = await fetch("https://api.coingecko.com/api/v3/simple/price?ids="+coinName+"&vs_currencies=usd");
+    return call.json().then(res => {return res});
+}
+
+var requestLoop = setInterval(async function(){
+            // const idDict = {
+            //     bitcoin : "btc",
+            //     //ethereum : "eth",
+            //     dogecoin : "doge",
+            //     litecoin : "ltc",
+            //     solana : "sol",
+            //     monero : "xmr",
+            //     optimism : "op",
+            //     dash : "dash",
+            //     decentraland : "mana",
+            //     maker : "mkr",
             
-            //   res.json(inquiry);
-            //call.then(response => response.json().then(result => {result.save()}));
-              //res.json(call);
-            // });
-      }, 1000);
+            // }
+            const names = "bitcoin,ethereum,dogecoin,litecoin,solana,monero,optimism,dash,decentraland,maker";
+            let nameList = names.split(",");
+
+            for (token in nameList){
+            let tokenName = nameList[token];
+            //console.log(tokenName);
+            let call = getShortTermOHLC(tokenName);
+            call.then((shortOHLC) =>{
+                let longCall = getLongTermOHLC(tokenName);
+                longCall.then((longOHLC) =>{
+                    
+                    //COIN CREATION CODE
+                    let priceCall = getCurrentPrice(tokenName).then(async (price)=>{
+                    // let coin = new CoinModel({crypto:tokenName, price: price[tokenName].usd, shortTermOHLC:shortOHLC, longTermOHLC:longOHLC});
+                    // coin.save();
+                    
+
+                    //IMPORTANT UPDATE CODE
+                    const filter = { crypto: tokenName };
+                    const update = { price: price[tokenName].usd, shortTermOHLC: shortOHLC, longTermOHLC: longOHLC};
+                    let a = await CoinModel.findOneAndUpdate(filter, update);
+                    //console.log(a.crypto);
+                    //console.log(a.price);
+                    });
+
+                    
+                    
+
+                })
+            })
+
+            }   
+
+            //clearInterval(requestLoop);
+            
+      }, 120000);
 
       // If you ever want to stop it...  clearInterval(requestLoop)
 

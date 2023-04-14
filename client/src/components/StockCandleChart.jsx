@@ -5,19 +5,25 @@ import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
 
 NoDataToDisplay(Highcharts);
 
-const StockCandleChart = ({data, coinToView, viewType,...props}) => {
+const StockCandleChart = ({coinToView, viewType,...props}) => {
+
+    const [data, setData] = useState([]);
 
     useEffect(()=>{
-        //console.log(data);
-    })
+        viewType === 0 ? setData(coinToView.shortTermOHLC) : setData(coinToView.longTermOHLC);
+    }, [viewType, coinToView])
+    
+    useEffect(()=>{
+      //console.log(data);
+    }, [data])
 
       const options = {
         chart: {
             events: {
-            load() {
-                this.showLoading();
-                setTimeout(this.hideLoading.bind(this), 1000);
-            }
+            // load() {
+            //     this.showLoading();
+            //     setTimeout(this.hideLoading.bind(this), 1000);
+            // }
             },
             backgroundColor:"transparent",
           type: "candlestick",
@@ -32,7 +38,7 @@ const StockCandleChart = ({data, coinToView, viewType,...props}) => {
         noData:{},
         loading:{},
         legend:{enabled:false},
-        title:{text:coinToView.charAt(0).toUpperCase() + coinToView.slice(1).toLowerCase(),
+        title:{text:coinToView.crypto.charAt(0).toUpperCase() + coinToView.crypto.slice(1).toLowerCase(),
             style: {
                 color: '#84CAF5',
                 fontWeight: 'bold'}
@@ -43,7 +49,7 @@ const StockCandleChart = ({data, coinToView, viewType,...props}) => {
             lineColor:"white",
             upColor: "#84CAF5",
             color: "white",
-            data: data, 
+            data: data,
             pointWidth:viewType === 0 ? 15 : 10,
             lineWidth:0.75,
             marker: {
