@@ -7,7 +7,16 @@ const CoinSchema = new mongoose.Schema({
     price : {
         type: Number,
         required: true,
-    }
+    },
+    shortTermOHLC :{
+        type: Array,
+        required: true,
+    },
+    longTermOHLC : {
+        type: Array,
+        required: true,
+    },
+    
 });
 
 const CoinModel = mongoose.model("coin", CoinSchema);

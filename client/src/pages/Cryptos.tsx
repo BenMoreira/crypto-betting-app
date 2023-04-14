@@ -2,15 +2,34 @@ import React, {useState, useEffect} from 'react'
 import Account from '../components/Account'
 import CoinView from '../components/CoinView'
 import CrypDisp from '../components/CrypDisp'
+import { getAllCoinData } from '../API/CoinAPI'
 
 export const Cryptos = () => {
-
+  const URL = "http://localhost:3001";
   const [selectedCoin, selectCoin] = useState("bitcoin");
+  //0 == Shawty, 1 == Long
   const [viewType, setViewtype] = useState(0);
 
+  //ALL 10 Token data
+  const [data, setData] = useState<any[]>([]);
+
+
   useEffect(() => {
-    console.log(selectedCoin);
+    //console.log(selectedCoin);
+
   }, [selectedCoin])
+
+  const func = () => {
+      let call = getAllCoinData(URL);
+      return call;
+  }
+
+  useEffect(()=> {
+      let d = func(); 
+      console.log(d);
+      d.then((response)=>{setData(response.data)});
+      
+  }, []);
 
   return (
     <div className='bg-coal-800 w-full min-h-screen max-h-full'>
@@ -33,7 +52,7 @@ export const Cryptos = () => {
         </div>
 
         <div className='bg-coal-800 w-100% h-fit mx-5 rounded-xl'>
-          <CrypDisp selectCoin={selectCoin}/>
+          <CrypDisp selectCoin={selectCoin} data={data}/>
         </div>
       </div>
 
@@ -46,7 +65,7 @@ export const Cryptos = () => {
               if(viewType === 0) {setViewtype(1);}
               else {setViewtype(0)}
             }}>{viewType === 0 ? "Short-Term (1 Day)" : "Long-Term (14 Days)"}</button>
-            <CoinView coinToView={selectedCoin} viewType={viewType}/>
+            <CoinView coinToView={data?.find((coin) => coin.crypto === selectedCoin)} viewType={viewType}/>
           </div>
         </div>
 
