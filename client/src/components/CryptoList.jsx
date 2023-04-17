@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react'
-import { getCoinData, getAllCoinData } from '../API/CoinAPI';
+import React from 'react'
 
-const tokenList = "bitcoin,ethereum,dogecoin,litecoin,solana,monero,optimism,dash,decentraland,maker"
+//const tokenList = "bitcoin,ethereum,dogecoin,litecoin,solana,monero,optimism,dash,decentraland,maker"
 
 const idDict = {
     bitcoin : "btc",
@@ -17,8 +16,7 @@ const idDict = {
 
 }
 
-
-const CrypDisp = ({selectCoin, data, ...props}) => {
+const CryptoList = ({selectCoin, data, ...props}) => {
 
 
 
@@ -27,7 +25,7 @@ const CrypDisp = ({selectCoin, data, ...props}) => {
             {
             data.map(token => {
                 return (
-                    <div className='bg-coal-700 select-none hover:bg-coal-500 w-100% h-[5vh] border border-coal-400 flex flex-row justify-center items-center text-xl px-5 text-coal-300 hover:text-coal-900 cursor-pointer'
+                    <div key={token.crypto} className='bg-coal-700 select-none hover:bg-coal-500 w-100% h-[5vh] border border-coal-400 flex flex-row justify-center items-center text-xl px-5 text-coal-300 hover:text-coal-900 cursor-pointer'
                         onClick={() => selectCoin(token.crypto)}>
                         <div className='w-4/12'>{idDict[token.crypto]?.toUpperCase()}</div>
                         <div className='capitalize w-4/12'>{token.crypto}</div>
@@ -41,5 +39,5 @@ const CrypDisp = ({selectCoin, data, ...props}) => {
     )
 }
 
-export default CrypDisp
+export default CryptoList
 

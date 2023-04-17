@@ -165,6 +165,7 @@ var requestLoop = setInterval(async function(){
             let tokenName = nameList[token];
             //console.log(tokenName);
             let call = getShortTermOHLC(tokenName);
+            
             call.then((shortOHLC) =>{
                 let longCall = getLongTermOHLC(tokenName);
                 longCall.then((longOHLC) =>{
@@ -177,6 +178,7 @@ var requestLoop = setInterval(async function(){
 
                     //IMPORTANT UPDATE CODE
                     const filter = { crypto: tokenName };
+                    //console.log(price);
                     const update = { price: price[tokenName].usd, shortTermOHLC: shortOHLC, longTermOHLC: longOHLC};
                     let a = await CoinModel.findOneAndUpdate(filter, update);
                     //console.log(a.crypto);
@@ -194,7 +196,7 @@ var requestLoop = setInterval(async function(){
             //clearInterval(requestLoop);
             
       }, 120000);
-
+    //120000
       // If you ever want to stop it...  clearInterval(requestLoop)
 
 app.listen(3001, ()=>{

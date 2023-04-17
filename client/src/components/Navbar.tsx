@@ -9,7 +9,7 @@ export const Navbar = () => {
         <div className='flex flex-col gap-8 font-light'>
         {
         ["Dashboard", "Leaderboard", "Cryptos"].map((option) => {
-         return <NavOption path={option}/>
+         return <NavOption path={option} key={option}/>
         }) 
         }
         <LoginButton />

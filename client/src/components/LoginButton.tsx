@@ -5,7 +5,7 @@ const LoginButton = () => {
 
     const { loginWithRedirect, user, isAuthenticated } = useAuth0();
 
-    useEffect(()=>{console.log(isAuthenticated)},[isAuthenticated]);
+    //useEffect(()=>{console.log("Is Authenticated : " + isAuthenticated)},[isAuthenticated]);
 
 
   return (

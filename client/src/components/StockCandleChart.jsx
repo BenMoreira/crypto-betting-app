@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react'
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
+import { getCoinData } from '../API/CoinAPI';
 
 NoDataToDisplay(Highcharts);
 
-const StockCandleChart = ({coinToView, viewType,...props}) => {
+const StockCandleChart = ({cryptoName, viewType,...props}) => {
 
     const [data, setData] = useState([]);
 
-    useEffect(()=>{
-        viewType === 0 ? setData(coinToView.shortTermOHLC) : setData(coinToView.longTermOHLC);
-    }, [viewType, coinToView])
-    
-    useEffect(()=>{
-      //console.log(data);
-    }, [data])
+    useEffect(() => {
+      let d = getCoinData("http://localhost:3001", cryptoName);
+      d.then(res => {
+        viewType === 0 ? setData(res.data.shortTermOHLC) : setData(res.data.longTermOHLC);});
+    },[cryptoName, viewType]);
+
 
       const options = {
         chart: {
@@ -38,7 +38,7 @@ const StockCandleChart = ({coinToView, viewType,...props}) => {
         noData:{},
         loading:{},
         legend:{enabled:false},
-        title:{text:coinToView.crypto.charAt(0).toUpperCase() + coinToView.crypto.slice(1).toLowerCase(),
+        title:{text:cryptoName.charAt(0).toUpperCase() + cryptoName.slice(1).toLowerCase(),
             style: {
                 color: '#84CAF5',
                 fontWeight: 'bold'}
@@ -95,7 +95,7 @@ const StockCandleChart = ({coinToView, viewType,...props}) => {
                 }
             },
         },
-        credits:{enabled:false}
+        credits:{enabled:false},
         
       };
 

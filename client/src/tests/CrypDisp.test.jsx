@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import CrypDisp from '../components/CrypDisp';
+import CrypDisp from '../components/CryptoList';
 
 describe('CrypDisp component', () => {
   it('renders a list of crypto tokens', async () => {

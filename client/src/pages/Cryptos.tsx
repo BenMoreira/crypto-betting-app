@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Account from '../components/Account'
-import CoinView from '../components/CoinView'
-import CrypDisp from '../components/CrypDisp'
+import CryptoViewChart from '../components/CryptoViewChart'
+import CryptoList from '../components/CryptoList'
 import { getAllCoinData } from '../API/CoinAPI'
 
 export const Cryptos = () => {
@@ -15,8 +15,6 @@ export const Cryptos = () => {
 
 
   useEffect(() => {
-    //console.log(selectedCoin);
-
   }, [selectedCoin])
 
   const func = () => {
@@ -26,9 +24,7 @@ export const Cryptos = () => {
 
   useEffect(()=> {
       let d = func(); 
-      console.log(d);
       d.then((response)=>{setData(response.data)});
-      
   }, []);
 
   return (
@@ -52,7 +48,7 @@ export const Cryptos = () => {
         </div>
 
         <div className='bg-coal-800 w-100% h-fit mx-5 rounded-xl'>
-          <CrypDisp selectCoin={selectCoin} data={data}/>
+          <CryptoList selectCoin={selectCoin} data={data}/>
         </div>
       </div>
 
@@ -65,7 +61,7 @@ export const Cryptos = () => {
               if(viewType === 0) {setViewtype(1);}
               else {setViewtype(0)}
             }}>{viewType === 0 ? "Short-Term (1 Day)" : "Long-Term (14 Days)"}</button>
-            <CoinView coinToView={data?.find((coin) => coin.crypto === selectedCoin)} viewType={viewType}/>
+            <CryptoViewChart cryptoName={selectedCoin} viewType={viewType}/>
           </div>
         </div>
 
