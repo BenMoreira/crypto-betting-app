@@ -6,7 +6,7 @@ export interface PinnedCryptoState {
 }
 
 const initialState: PinnedCryptoState = {
-    pinnedCryptos: [],
+    pinnedCryptos: ["bitcoin"],
   };
   
 

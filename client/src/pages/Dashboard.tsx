@@ -26,7 +26,7 @@ export const Dashboard = () => {
           Pinned Cryptos
 
 
-            <div className='grid grid-cols-5 py-5'>
+            <div className='grid grid-cols-5 pt-5'>
               {(pinnedCryptos as any).pinnedCryptos.map((crypto: String) =>{
                 return <PinnedCrypto name={crypto} />
               })

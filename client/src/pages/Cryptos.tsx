@@ -26,7 +26,7 @@ export const Cryptos = () => {
 
 
   useEffect(() => {
-    console.log(pinnedCryptos);
+    //console.log(pinnedCryptos);
 
   }, [selectedCoin])
 
@@ -36,7 +36,7 @@ export const Cryptos = () => {
   }
 
   function isPinned(coin : String){
-    console.log(pinnedCryptos);
+    //console.log(pinnedCryptos);
     //return true;
     if((pinnedCryptos as any).pinnedCryptos.includes(coin)){
       return true;
@@ -47,14 +47,14 @@ export const Cryptos = () => {
   }
 
   const togglePin = (coin : String) =>{
-    console.log(coin);
+    //console.log(coin);
     if(isPinned(coin)){
       dispatch(unpin(coin));
     }
     else{
       dispatch(pin(coin));
     }
-    console.log("pinned : " + coin);
+    //console.log("pinned : " + coin);
   }
 
   const pinColor = (coin : String) => {
