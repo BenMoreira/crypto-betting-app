@@ -175,7 +175,8 @@ var requestLoop = setInterval(async function(){
                 longCall.then((longOHLC) =>{
                     
                     //COIN CREATION CODE
-                    let priceCall = getCurrentPrice(tokenName).then(async (price)=>{
+                    let priceCall = getCurrentPrice(tokenName).then(async(price, reject)=>{
+
                     // let coin = new CoinModel({crypto:tokenName, price: price[tokenName].usd, shortTermOHLC:shortOHLC, longTermOHLC:longOHLC});
                     // coin.save();
                     
@@ -183,15 +184,10 @@ var requestLoop = setInterval(async function(){
                     //IMPORTANT UPDATE CODE
                     const filter = { crypto: tokenName };
                     console.log(price);
-                    // if(price.status.error_code !== undefined && price.status.error_code !== null){
-                    //     console.log("Too many Requests Code : " +price.status.error_code);
-                    // }
+
                     const update = { price: price[tokenName].usd, shortTermOHLC: shortOHLC, longTermOHLC: longOHLC};
                     let a = await CoinModel.findOneAndUpdate(filter, update);
-                    //console.log(a.crypto);
-                    //console.log(a.price);
-                    });
-
+                    }).catch(err => console.error(err));
                     
                     
 
@@ -202,7 +198,6 @@ var requestLoop = setInterval(async function(){
 
             //clearInterval(requestLoop);
       }, 240000);
-    //120000
       // If you ever want to stop it...  clearInterval(requestLoop)
 
 app.listen(3001, ()=>{
