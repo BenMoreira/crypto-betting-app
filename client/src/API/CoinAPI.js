@@ -8,3 +8,11 @@ export function getCoinData(URL, cryptoName){
 export function getAllCoinData(URL){
     return Axios.get(URL + "/getCoins").then((response)=> {return(response)});
 }
+
+export function createBet(URL, values){
+    return Axios.post(URL + "/createBet", {data: values}).then((response) => {return(response)});
+}
+
+export function getBetsForCoin(URL, cryptoName){
+    return Axios.get(URL + "/getBetsFor", { params: {cryptoName : cryptoName}}).then((response)=> {return(response)});
+}

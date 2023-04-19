@@ -7,7 +7,7 @@ import { getAllCoinData } from '../API/CoinAPI'
 import { AiFillPushpin } from 'react-icons/ai'
 import { PinnedCryptoState } from '../features/pinnedCryptoSlice'
 import {pin, unpin} from '../features/pinnedCryptoSlice'
-
+import CreateBet from '../components/CreateBet'
 
 
 export const Cryptos = () => {
@@ -47,21 +47,12 @@ export const Cryptos = () => {
   }
 
   const togglePin = (coin : String) =>{
-    //console.log(coin);
     if(isPinned(coin)){
       dispatch(unpin(coin));
     }
     else{
       dispatch(pin(coin));
     }
-    //console.log("pinned : " + coin);
-  }
-
-  const pinColor = (coin : String) => {
-    if(isPinned(coin)){
-      return "text-blue-300";
-    }
-    else return "text-white"
   }
 
   useEffect(()=> {
@@ -118,9 +109,12 @@ export const Cryptos = () => {
         </div>
 
       <div className='bg-coal-900 mx-10 rounded-xl py-5 mt-10'>
-        <div className='bg-coal-800 w-100% h-[10vh] mx-5 rounded-xl'>
-          <div className='text-coal-200 text-2xl p-5'>
-            Create a New Bet
+        <div className='bg-transparent w-100% h-fit mx-5 rounded-xl'>
+          <div className='text-coal-200 text-2xl p-5 mb-4 text-center'>
+            <span className='text-4xl'>{selectedCoin.charAt(0).toUpperCase() + selectedCoin.slice(1).toLowerCase()}</span> <span className='text-xl font-extralight px-2'>Betting Spread</span>
+          </div>
+          <div className='mx-5 w-100%'>
+          <CreateBet name={selectedCoin}/>
           </div>
         </div>
       </div>

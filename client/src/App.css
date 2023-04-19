@@ -23,3 +23,11 @@ body{
   ::-webkit-scrollbar-thumb:hover {
     background: #737373;
   }
+
+  #expiry:focus{
+    outline:none !important;
+  }
+
+  #strike:focus{
+    outline:none !important;
+  }

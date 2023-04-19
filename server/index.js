@@ -129,6 +129,17 @@ app.get("/getCoin", async (req, res)=>{
 
 })
 
+app.get("/getBetsFor", async (req, res) =>{
+    let c =  await BetModel.find({crypto : req.query.cryptoName});
+    res.send(c);
+})
+
+app.post("/createBet", async (req, res) => {
+    data = req.body.data;
+    let bet = BetModel.create({...data});
+    res.send(bet);
+})
+
 
 async function getShortTermOHLC(coinName){
     let call = await fetch("https://api.coingecko.com/api/v3/coins/"+coinName+"/ohlc?vs_currency=usd&days=1");

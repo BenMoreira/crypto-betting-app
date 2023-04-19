@@ -23,7 +23,8 @@ const BetSchema = new mongoose.Schema({
     statusCode : {
         type: Number,
         required: true,
-    }
+    },
+    daysExpiry: Number,
 });
 
 const BetModel = mongoose.model("bet", BetSchema);

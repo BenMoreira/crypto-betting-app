@@ -18,12 +18,12 @@ const PinnedCrypto = ({name} : {name : String}) => {
   return (
     <div className='flex flex-col w-[90%] mx-[5%] h-[20vh]'>
       <div className='flex flex-row justify-between items-baseline gap-1 text-xl'>
-        <div className='text-blue-300'>
+        <div className='text-blue-300 font-light'>
           {name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}
         </div> 
 
         <div className='flex items-baseline gap-1'>
-        <div className='text-coal-200 font-light'>
+        <div className='text-coal-200 font-extralight'>
           ${Math.trunc(currentPrice * 1000) / 1000}
         </div>
 
