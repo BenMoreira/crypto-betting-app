@@ -17,6 +17,22 @@ const QuickQuoteChart = ({cryptoName, viewType,...props}) => {
     },[cryptoName, viewType]);
 
 
+    function getMinPrice(){
+      let priceData = [];
+      data.forEach(entry => {
+        priceData.push(entry[1]);
+      });
+      return Math.min(...priceData);
+    }
+
+    function getMaxPrice(){
+      let priceData = [];
+      data.forEach(entry => {
+        priceData.push(entry[1]);
+      });
+      return Math.max(...priceData);
+    }
+
       const options = {
         chart: {
             events: {
@@ -85,8 +101,10 @@ const QuickQuoteChart = ({cryptoName, viewType,...props}) => {
             title:{text:undefined},
             //softMin: data[0] * 0.95,
             //softMax: data[1][1] * 1.05,
-            min: data[0][1] * 0.965,
-            max: data[0][1] * 1.035,
+            //min: data[0][1] * 0.95,
+            //max: data[0][1] * 1.05,
+            min: getMinPrice() * 0.98,
+            max: getMaxPrice() * 1.02,
             gridLineColor: "transparent",
         },
         xAxis:[{
