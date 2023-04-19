@@ -1,12 +1,23 @@
 import React, {useState, useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import Account from '../components/Account'
 import CryptoViewChart from '../components/CryptoViewChart'
 import CryptoList from '../components/CryptoList'
 import { getAllCoinData } from '../API/CoinAPI'
+import { AiFillPushpin } from 'react-icons/ai'
+import { PinnedCryptoState } from '../features/pinnedCryptoSlice'
+import {pin, unpin} from '../features/pinnedCryptoSlice'
+
+
 
 export const Cryptos = () => {
+
+  const pinnedCryptos = useSelector((state : PinnedCryptoState) => state.pinnedCryptos);
+  const dispatch = useDispatch();
+
   const URL = "http://localhost:3001";
   const [selectedCoin, selectCoin] = useState("bitcoin");
+  
   //0 == Shawty, 1 == Long
   const [viewType, setViewtype] = useState(0);
 
@@ -15,11 +26,42 @@ export const Cryptos = () => {
 
 
   useEffect(() => {
+    console.log(pinnedCryptos);
+
   }, [selectedCoin])
 
   const func = () => {
       let call = getAllCoinData(URL);
       return call;
+  }
+
+  function isPinned(coin : String){
+    console.log(pinnedCryptos);
+    //return true;
+    if((pinnedCryptos as any).pinnedCryptos.includes(coin)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  const togglePin = (coin : String) =>{
+    console.log(coin);
+    if(isPinned(coin)){
+      dispatch(unpin(coin));
+    }
+    else{
+      dispatch(pin(coin));
+    }
+    console.log("pinned : " + coin);
+  }
+
+  const pinColor = (coin : String) => {
+    if(isPinned(coin)){
+      return "text-blue-300";
+    }
+    else return "text-white"
   }
 
   useEffect(()=> {
@@ -56,11 +98,21 @@ export const Cryptos = () => {
 
         <div className='p-5 mx-5 rounded-x'>
           <div className='rounded-xl w-100% bg-coal-900'>
-            <button className='rounded-xl w-60 bg-coal-800 text-blue-300 mx-4 mt-4 py-1 px-2' 
-            onClick={() => {
-              if(viewType === 0) {setViewtype(1);}
-              else {setViewtype(0)}
-            }}>{viewType === 0 ? "Short-Term (1 Day)" : "Long-Term (14 Days)"}</button>
+            <div className='flex'>
+              <button className='rounded-xl w-60 bg-coal-800 text-blue-300 mx-4 mt-4 py-1 px-2' 
+              onClick={() => {
+                if(viewType === 0) {setViewtype(1);}
+                else {setViewtype(0)}
+              }}>{viewType === 0 ? "Short-Term (1 Day)" : "Long-Term (14 Days)"}</button>
+              <div className='mx-0 mt-4 py-1 px-1' onClick={() =>{ togglePin(selectedCoin)}}>
+                {
+                  isPinned(selectedCoin) ? 
+                  <AiFillPushpin className='w-6 h-6 text-blue-300' />
+                  :
+                  <AiFillPushpin className='w-6 h-6 text-white' />
+                }
+              </div>
+            </div>
             <CryptoViewChart cryptoName={selectedCoin} viewType={viewType}/>
           </div>
         </div>

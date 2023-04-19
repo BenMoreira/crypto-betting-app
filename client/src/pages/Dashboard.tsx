@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { PinnedCryptoState } from '../features/pinnedCryptoSlice';
 import Account from '../components/Account';
 import PinnedCrypto from '../components/PinnedCrypto';
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const Dashboard = () => {
 
+  const pinnedCryptos = useSelector((state : PinnedCryptoState) => state.pinnedCryptos);
   const { user, isAuthenticated} = useAuth0();
 
   useEffect(()=>{console.log(user)},[user]);
@@ -23,13 +26,11 @@ export const Dashboard = () => {
           Pinned Cryptos
 
 
-            <div className='grid grid-cols-6 py-5'>
-              <PinnedCrypto />
-              <PinnedCrypto />
-              <PinnedCrypto />
-              <PinnedCrypto />
-              <PinnedCrypto />
-              <PinnedCrypto />
+            <div className='grid grid-cols-5 py-5'>
+              {(pinnedCryptos as any).pinnedCryptos.map((crypto: String) =>{
+                return <PinnedCrypto name={crypto} />
+              })
+              }
             </div>
         </div>
       </div>

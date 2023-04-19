@@ -30,6 +30,7 @@ const CryptoList = ({selectCoin, data, ...props}) => {
                         <div className='w-4/12'>{idDict[token.crypto]?.toUpperCase()}</div>
                         <div className='capitalize w-4/12'>{token.crypto}</div>
                         <div className='w-4/12'>${token.price}</div>
+                        <div></div>
                     </div>
                 )
             })

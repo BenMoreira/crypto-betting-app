@@ -144,6 +144,10 @@ async function getCurrentPrice(coinName){
     return call.json().then(res => {return res});
 }
 
+function sleep (milliseconds) {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds))
+  }
+
 var requestLoop = setInterval(async function(){
             // const idDict = {
             //     bitcoin : "btc",
@@ -162,10 +166,10 @@ var requestLoop = setInterval(async function(){
             let nameList = names.split(",");
 
             for (token in nameList){
+            await sleep(20000);
             let tokenName = nameList[token];
             //console.log(tokenName);
             let call = getShortTermOHLC(tokenName);
-            
             call.then((shortOHLC) =>{
                 let longCall = getLongTermOHLC(tokenName);
                 longCall.then((longOHLC) =>{
@@ -178,7 +182,10 @@ var requestLoop = setInterval(async function(){
 
                     //IMPORTANT UPDATE CODE
                     const filter = { crypto: tokenName };
-                    //console.log(price);
+                    console.log(price);
+                    // if(price.status.error_code !== undefined && price.status.error_code !== null){
+                    //     console.log("Too many Requests Code : " +price.status.error_code);
+                    // }
                     const update = { price: price[tokenName].usd, shortTermOHLC: shortOHLC, longTermOHLC: longOHLC};
                     let a = await CoinModel.findOneAndUpdate(filter, update);
                     //console.log(a.crypto);
@@ -190,12 +197,11 @@ var requestLoop = setInterval(async function(){
 
                 })
             })
-
+            
             }   
 
             //clearInterval(requestLoop);
-            
-      }, 120000);
+      }, 240000);
     //120000
       // If you ever want to stop it...  clearInterval(requestLoop)
 
