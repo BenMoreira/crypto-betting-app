@@ -8,6 +8,7 @@ import { AiFillPushpin } from 'react-icons/ai'
 import { PinnedCryptoState } from '../features/pinnedCryptoSlice'
 import {pin, unpin} from '../features/pinnedCryptoSlice'
 import CreateBet from '../components/CreateBet'
+import PlaceWager from '../components/PlaceWager'
 
 
 export const Cryptos = () => {
@@ -123,6 +124,7 @@ export const Cryptos = () => {
         <div className='flex flex-row justify-between'>
           <div className='text-coal-200 text-2xl p-5'>
             Active Bets
+            <PlaceWager name={selectedCoin}/>
           </div>
         </div>
 

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 const BetSchema = new mongoose.Schema({
+    betID : {
+        type: String,
+        required: false,
+    },
     crypto : {
         type: String,
         required: true,
