@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { createBet, getBetsForCoin, getCoinData } from '../API/CoinAPI';
+import { updateBets } from '../features/placedBetsSlice';
+
 
 type CryptoObject = {
     crypto : String,
@@ -42,6 +45,7 @@ const CreateBet = ({name} : {name : String}) => {
     const [strikePercent, setStrikePercent] = useState(-1);
     const [daysExpiry, setDaysExpiry] = useState(1);
     const [betData, setBetData] = useState<BetData>();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let d = getCoinData("http://localhost:3001", name);
@@ -56,7 +60,10 @@ const CreateBet = ({name} : {name : String}) => {
     },[name, strikePercent, daysExpiry]);
 
     useEffect(() => {
-        getBetsForCoin("http://localhost:3001", name).then(res => {setBets(res.data)});
+        getBetsForCoin("http://localhost:3001", name).then(res => {
+            setBets(res.data)
+            dispatch(updateBets(res.data));
+        });
         
     },[name, daysExpiry]);
 

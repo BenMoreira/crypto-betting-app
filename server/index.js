@@ -1,5 +1,6 @@
 //dependency//const declaration
 const express = require("express");
+const uuid = require("uuid");
 const app = express();
 const mongoose = require('mongoose')
 const UserModel = require('./models/User')
@@ -136,7 +137,7 @@ app.get("/getBetsFor", async (req, res) =>{
 
 app.post("/createBet", async (req, res) => {
     data = req.body.data;
-    let bet = BetModel.create({...data});
+    let bet = BetModel.create({betID: uuid.v4(),...data});
     res.send(bet);
 })
 

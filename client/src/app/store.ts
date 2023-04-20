@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import pinnedCryptoReducer from '../features/pinnedCryptoSlice';
+import placedBetsReducer from '../features/placedBetsSlice';
 
 export const store = configureStore({
   reducer: {
     pinnedCryptos : pinnedCryptoReducer,
+    placedBets : placedBetsReducer,
     counter : counterReducer,
   },
 });
