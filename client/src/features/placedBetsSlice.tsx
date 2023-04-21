@@ -3,10 +3,33 @@ import { RootState } from '../app/store';
 
 export type Bet = {
     betID : String,
-    userID : String,
-    placedDate : Number,
-    wagerValue : Number,
+    crypto : String,
+    creationDate : String,
+    expirationDate : String,
+    creationPrice : Number,
+    strikePrice : Number,
+    statusCode : Number,
+    daysExpiry : Number,
 }
+/*
+
+betID
+"8a3fe279-3441-4d57-b3ee-8f0fe625f0db"
+crypto
+"bitcoin"
+creationDate
+"1681964872548"
+expirationDate
+"1682103600000"
+creationPrice
+28911
+strikePrice
+29200.11
+statusCode
+0
+daysExpiry
+1
+*/
 
 export interface PlacedBetsState {
     placedBets : Array<Bet>;

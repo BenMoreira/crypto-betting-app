@@ -4,24 +4,21 @@ import { createBet, getBetsForCoin, getCoinData } from '../API/CoinAPI';
 import { updateBets } from '../features/placedBetsSlice';
 
 
-type CryptoObject = {
+export type CryptoObject = {
     crypto : String,
     price : number,
     shortTermOHLC : Array<Number>,
     longTermOHLC : Array<Number>,
 }
 
-type BetObject = {
+export type BetObject = {
     crypto : String,
     creationDate : String,
     expirationDate : String,
     creationPrice : Number,
     strikePrice : Number,
     statusCode : Number,
-    betInfo : {
-        daysExpiry : Number,
-        strikePercent : Number,
-    }
+    daysExpiry : Number,
 }
 
 type BetData = {
@@ -76,7 +73,7 @@ const CreateBet = ({name} : {name : String}) => {
 
     useEffect(()=>{
         checkBetAvailability();
-        console.log(daysExpiry + " days");
+       //console.log(daysExpiry + " days");
     }, [bets, daysExpiry]); //]);
 
     useEffect(()=>{

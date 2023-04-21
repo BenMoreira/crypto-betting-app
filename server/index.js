@@ -48,6 +48,12 @@ app.post("/newWager", async (req, res)=>{
     res.json(ok);
 });
 
+app.post("/createUser", async (req, res) =>{
+    data = req.body;
+    let bet = UserModel.create({...data});
+    res.send(bet);
+})
+
 
 app.post("/saveCoin", async (req, res)=>{
     // const call = fetch("https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30");
@@ -141,6 +147,12 @@ app.post("/createBet", async (req, res) => {
     res.send(bet);
 })
 
+app.post("/createWager", async  (req, res) => {
+    data = req.body.data;
+    let wager = WagerModel.create({...data});
+    res.send(wager);
+})
+
 
 async function getShortTermOHLC(coinName){
     let call = await fetch("https://api.coingecko.com/api/v3/coins/"+coinName+"/ohlc?vs_currency=usd&days=1");
@@ -160,7 +172,7 @@ function sleep (milliseconds) {
     return new Promise((resolve) => setTimeout(resolve, milliseconds))
   }
 
-var requestLoop = setInterval(async function(){
+var fetchCoinDataLoop = setInterval(async function(){
             // const idDict = {
             //     bitcoin : "btc",
             //     //ethereum : "eth",
