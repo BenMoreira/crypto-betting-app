@@ -18,7 +18,7 @@ export const Leaderboard = () => {
           </div>
 
           <div className='m-5'>
-            <input className='bg-coal-700 text-coal-200 text-xl p-3 rounded-xl' placeholder='Search'/>
+            {/* <input className='bg-coal-700 text-coal-200 text-xl p-3 rounded-xl' placeholder='Search'/> */}
           </div>
         </div>
 
@@ -34,7 +34,7 @@ export const Leaderboard = () => {
           </div>
 
           <div className='m-5'>
-            <input className='bg-coal-700 text-coal-200 text-xl p-3 rounded-xl' placeholder='Search'/>
+            {/* <input className='bg-coal-700 text-coal-200 text-xl p-3 rounded-xl' placeholder='Search'/> */}
           </div>
         </div>
 
