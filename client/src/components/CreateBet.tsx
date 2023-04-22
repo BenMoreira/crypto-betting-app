@@ -200,9 +200,64 @@ const CreateBet = ({name} : {name : String}) => {
     }
 
   return (
-    <table className='mx-auto table-auto w-3/4 border-spacing-1 border-separate text-xl'>
+    <div className='mx-80% p-4 rounded-xl'>
+        <div className='flex flex-row justify-center gap-6 text-blue-300 text-xl text-center'>
+            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
+                Current Price $
+                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
+                ${getCurrentPrice().toString()}
+                </div>
+            </div>
+            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
+                Expiry
+                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
+                <select id="expiry" name="expiryday" className='bg-transparent w-full text-center' value={daysExpiry as any} onChange={(e) => handleExpiryChange(e)}>
+                    <option value={1}>1 Day</option>
+                    <option value={2}>2 Days</option>
+                    <option value={3}>3 Days</option>
+                </select>
+                </div>
+            </div>
+            <div className='bg-coal-700 py-1 px-1 font-normal rounded-xl'>
+                Strike %
+                <div className='bg-coal-700 py-1 font-normal rounded-xl'>
+                <select id="strike" name="strikepercent" className='bg-transparent w-full text-coal-200 text-center' value={strikePercent} onChange={(e) => handleSelectChange(e)}>
+                    <option value={-1}> -- select an option -- </option>
+                    {/* {strikes[0] === false ? <option value={.98} disabled={strikes[0]}>-2%</option> : <></>} */}
+                    <option value={.98} disabled={strikes[0]}>-2%</option>
+                    <option value={.99} disabled={strikes[1]}>-1%</option>
+                    <option value={1.01} disabled={strikes[2]}>1%</option>
+                    <option value={1.02} disabled={strikes[3]}>2%</option>
+                </select>
+                </div>
+            </div>
+            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
+                Strike $
+                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
+                ${strikePercent !== -1 ? betData?.strikePrice : ''}
+                </div>
+            </div>
+            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
+                Difference $
+                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
+                ${strikePercent !== -1 ? betData?.diff : ''}
+                </div>
+            </div>
+        </div>
+
+        <div className='flex flex-row justify-center pt-5'>
+            <button onClick={() => saveBet()} className='bg-coal-700 rounded-lg text-coal-200 text-xl font-bold p-3'> Place Bet</button>
+        </div>
+    </div>
+  )
+}
+
+export default CreateBet
+
+/*
+<table className='mx-auto table-auto w-3/4 border-spacing-1 border-separate text-xl'>
         <thead className='bg-coal-800 text-blue-300 text-xl'>
-            {/* <th className='font-normal'>Token Name</th> */}
+            {/* <th className='font-normal'>Token Name</th> }
             <th className='font-normal p-1'>Current Price ($)</th>
             <th className='font-normal p-1'>Expiry</th>
             <th className='font-normal p-1'>Strike (%)</th>
@@ -212,7 +267,7 @@ const CreateBet = ({name} : {name : String}) => {
         </thead>
         <tbody>
         <tr className='bg-coal-700 text-coal-200'>
-            {/* <td>Bitcoin</td> */}
+            {/* <td>Bitcoin</td> }
             <td  className='text-center p-1'>
                 ${getCurrentPrice().toString()}
             </td>
@@ -226,7 +281,7 @@ const CreateBet = ({name} : {name : String}) => {
             <td className='text-center p-1'>
                 <select id="strike" name="strikepercent" className='bg-transparent w-full text-center' value={strikePercent} onChange={(e) => handleSelectChange(e)}>
                     <option value={-1}> -- select an option -- </option>
-                    {/* {strikes[0] === false ? <option value={.98} disabled={strikes[0]}>-2%</option> : <></>} */}
+                    {/* {strikes[0] === false ? <option value={.98} disabled={strikes[0]}>-2%</option> : <></>} }
                     <option value={.98} disabled={strikes[0]}>-2%</option>
                     <option value={.99} disabled={strikes[1]}>-1%</option>
                     <option value={1.01} disabled={strikes[2]}>1%</option>
@@ -239,14 +294,8 @@ const CreateBet = ({name} : {name : String}) => {
             <td  className='text-center p-1'>
                 <button onClick={() => saveBet()}> Place Bet</button>
             </td>
-            {/* <td>{new Date().toLocaleTimeString()}</td> */}
+            {/* <td>{new Date().toLocaleTimeString()}</td>}
         </tr>
         </tbody>
     </table>
-
-
-
-  )
-}
-
-export default CreateBet
+*/
