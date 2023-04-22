@@ -83,10 +83,51 @@ const PlaceWager = ({name} : {name: String}) => {
   }
 
   return (
-    <div className='flex justify-center'>
+    <div className='mx-80% p-4 rounded-xl'>
+      <div className='flex flex-row justify-center'>
+        <div>
+        {(((placedBets as any).placedBets) as Bet[]).map(bet=>{
+            return (
+            <div key={bet.betID as Key} className='flex flex-row justify-center bg-coal-700 text-coal-200 text-xl p-1 rounded-lg gap-2'>
+              <div className='text-center p-1'>
+                  ${bet.creationPrice.toString()}
+              </div>
+
+              <div className='text-center p-1'>
+                {getTimeString(bet.expirationDate as string).toString()}
+              </div>
+
+              <div className='text-center p-1'>
+                {getStrikePercent(bet)}%
+              </div>
+
+              <div className='text-center p-1'>
+                ${bet.strikePrice.toString()}
+              </div>
+
+              <div className='text-center p-1'>
+                ${getCurrentPriceDifference(bet)}
+              </div>
+
+              <div className='text-center p-1'>
+                  <button onClick={() => placeWager(bet)}> Place Wager</button>
+              </div>
+            </div>
+            )
+        })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default PlaceWager
+
+/*
+<div className='flex justify-center'>
       <table className='mx-auto table-auto w-4/4 border-spacing-1 border-separate text-xl'>
         <thead className='bg-coal-800 text-blue-300 text-xl'>
-            {/* <th className='font-normal'>Token Name</th> */}
+            {/* <th className='font-normal'>Token Name</th> }
             <th className='font-normal p-1'>Creation Price ($)</th>
             <th className='font-normal p-1'>Expiry Date</th>
             <th className='font-normal p-1'>Strike (%)</th>
@@ -98,7 +139,7 @@ const PlaceWager = ({name} : {name: String}) => {
         {(((placedBets as any).placedBets) as Bet[]).map(bet=>{
             return (
             <tr  key={bet.betID as Key} className='bg-coal-700 text-coal-200'>
-            {/* <td>Bitcoin</td> */}
+            {/* <td>Bitcoin</td> }
             <td  className='text-center p-1'>
                 ${bet.creationPrice.toString()}
             </td>
@@ -122,7 +163,7 @@ const PlaceWager = ({name} : {name: String}) => {
             <td  className='text-center p-1'>
                 <button onClick={() => placeWager(bet)}> Place Wager</button>
             </td>
-            {/* <td>{new Date().toLocaleTimeString()}</td> */}
+            {/* <td>{new Date().toLocaleTimeString()}</td> }
             </tr>
             )
         })}
@@ -130,7 +171,4 @@ const PlaceWager = ({name} : {name: String}) => {
     </table>
         
     </div>
-  )
-}
-
-export default PlaceWager
+*/
