@@ -3,6 +3,7 @@ const express = require("express");
 const uuid = require("uuid");
 const app = express();
 //
+const fetch = require("node-fetch");
 const mongoose = require('mongoose')
 const UserModel = require('./models/User')
 const WagerModel = require('./models/Wager')
@@ -22,7 +23,6 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect("mongodb+srv://robertrecalo:GTBH8o2VeiglBY7E@cluster0.9hupwwm.mongodb.net/Crypto-Betting-App?retryWrites=true&w=majority");
-
 //req = request
 //res = response
 // "/getUsers" == request name
