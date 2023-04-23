@@ -51,9 +51,7 @@ app.post("/newWager", async (req, res)=>{
 
 app.post("/createUser", async (req, res) =>{
     data = req.body;
-    
-    //let bet = UserModel.create({...data});
-    let bet = UserModel.create({email : "umom@am.c", tokens : 10});
+    let bet = UserModel.create({...data});
     res.send(bet);
 })
 
