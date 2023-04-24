@@ -68,35 +68,7 @@ app.put("/changePassword", (req, res) => {
 })
 
 app.post("/createUser", (req, res)=>{
-    console.log(req.body);
-    
-    // let user = req.body;
-    // console.log(user);
-    // UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
-    // if (err || withSameMail) {
-    //     //client.close();
-    //     return res.json({"error": "the user already exists"} || new Error('the user already exists'));
-    // }
-
-    // bcrypt.hash(user.password, 10, function (err, hash) {
-    //     if (err) {
-    //     //client.close();
-    //     return res.json(err);
-    //     }
-
-    //     user.password = hash;
-    //     //user.tokens = 100;
-    //     //user.save()
-    //     let newUser = new UserModel(user);
-    //     newUser.userID = uuid.v4();
-    //     newUser.save();
-    //     console.log(newUser.toJSON());
-    //     res.json(newUser.toJSON());
-    // });
-    // });
     CreateUser(req.body, function(result){
-        
-    
         res.json(result);
     });
 })
@@ -129,12 +101,6 @@ app.post("/newWager", async (req, res)=>{
     res.json(ok);
 });
 
-// app.post("/createUser", async (req, res) =>{
-//     data = req.body;
-//     let bet = UserModel.create({...data});
-//     res.send(bet);
-// })
-
 
 app.post("/saveCoin", async (req, res)=>{
     // const call = fetch("https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=30");
@@ -153,57 +119,7 @@ app.post("/saveCoin", async (req, res)=>{
     //res.json(call);
 })
 
-// app.post("/createUser", async (req, res) =>{
-//     await lol.save();
-//     res.json(lol);
-// //   const user = req.body;
-// //   //make new user using the UserModel schema, passing the data given in the 'req' parameter
-// //   const newUser = new UserModel(user);
 
-// //   //insert the newUser document to the DB
-// //   await newUser.save();
-
-// //   //return back the new user's data
-// //   res.json(user);
-
-// });
-
-// app.get("/getAllInquiries", (req, res)=>{
-//   InquiryModel.find({}, (err, result)=>{
-//     if(err){
-//       res.json(err);
-//       console.log("Error making /getAllInquiries request!!!");
-//     }
-//     else{
-//       res.json(result);
-//     }
-//   });
-// });
-
-// app.post("/createInquiry", async(req, res)=>{
-//   const inquiry = req.body;
-  
-//   const newInquiry = new InquiryModel(inquiry);
-
-//   await newInquiry.save();
-  
-//   res.json(inquiry);
-
-// });
-
-// app.delete("/deleteInquiry", async (req, res)=>{
-
-//       //console.log(req.body);
-//       //var a = req.data
-//       InquiryModel.findOneAndDelete({UTCTime : req.body.UTCTime}, (err, result) =>{
-//         if(err){
-//           res.json(err);
-//         }
-//         else{
-//           res.json(result);
-//         }
-//       });
-// });
 
 app.get("/getCoins", async (req, res)=>{
     let c =  await CoinModel.find({});
@@ -311,17 +227,6 @@ app.listen(3001, ()=>{
 
 
 function CreateUser(user, callback) {
-    //const bcrypt = require('bcrypt');
-    //const MongoClient = require('mongodb@4.1.0').MongoClient;
-    //const client = new MongoClient('mongodb+srv://robertrecalo:GTBH8o2VeiglBY7E@cluster0.9hupwwm.mongodb.net/test');
-    
-    //client.connect(function (err) {
-      //if (err) return callback(err);
-  
-      //const db = client.db('Crypto-Betting-App');
-      //const users = db.collection('auths');
-      //const accounts = db.collection('users');
-      console.log(user);
       UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
         if (err || withSameMail) {
           //client.close();
@@ -330,14 +235,13 @@ function CreateUser(user, callback) {
   
         bcrypt.hash(user.password, 10, function (err, hash) {
           if (err) {
-            //client.close();
             return callback(err);
           }
   
           user.password = hash;
           //user.tokens = 100;
           //user.save()
-          let newUser = new UserModel(user);
+          let newUser = new UserModel({...user, pins: [], userID: uuid.v4(), tokens: 100 });
           newUser.save();
           console.log(newUser.toJSON());
           callback(newUser.toJSON());
@@ -353,5 +257,3 @@ function CreateUser(user, callback) {
         });
       });
     };
-  //}
-  

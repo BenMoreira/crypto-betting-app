@@ -10,7 +10,15 @@ const UserSchema = new mongoose.Schema({
     },
     userID : {
         type: String,
-        required: false,
+        required: true,
+    },
+    tokens : {
+        type: Number,
+        required: true,
+    },
+    pins : {
+        type: Array,
+        reuired: false,
     }
     // },
     // tokens : {
