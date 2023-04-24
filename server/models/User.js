@@ -7,6 +7,10 @@ const UserSchema = new mongoose.Schema({
     password : {
         type: String,
         required: true,
+    },
+    userID : {
+        type: String,
+        required: false,
     }
     // },
     // tokens : {

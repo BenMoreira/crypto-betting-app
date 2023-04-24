@@ -42,6 +42,7 @@ app.get(("/getUserByEmail"), (req, res)=>{
 app.get("/login",  (req, res)=>{
     const auth = new Buffer.from(req.headers.authorization.split(' ')[1],
         'base64').toString().split(':');
+    console.log(auth);
     const email = auth[0];
     const pass = auth[1];
 
@@ -59,34 +60,35 @@ app.get("/login",  (req, res)=>{
 app.post("/createUser", (req, res)=>{
     console.log(req.body);
     
-    let user = req.body;
-    console.log(user);
-    UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
-    if (err || withSameMail) {
-        //client.close();
-        return res.json({"error": "the user already exists"} || new Error('the user already exists'));
-    }
+    // let user = req.body;
+    // console.log(user);
+    // UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
+    // if (err || withSameMail) {
+    //     //client.close();
+    //     return res.json({"error": "the user already exists"} || new Error('the user already exists'));
+    // }
 
-    bcrypt.hash(user.password, 10, function (err, hash) {
-        if (err) {
-        //client.close();
-        return res.json(err);
-        }
+    // bcrypt.hash(user.password, 10, function (err, hash) {
+    //     if (err) {
+    //     //client.close();
+    //     return res.json(err);
+    //     }
 
-        user.password = hash;
-        //user.tokens = 100;
-        //user.save()
-        let newUser = new UserModel(user);
-        newUser.save();
-        console.log(newUser.toJSON());
-        res.json(newUser.toJSON());
-    });
-    });
-    // CreateUser(req.body, function(result){
+    //     user.password = hash;
+    //     //user.tokens = 100;
+    //     //user.save()
+    //     let newUser = new UserModel(user);
+    //     newUser.userID = uuid.v4();
+    //     newUser.save();
+    //     console.log(newUser.toJSON());
+    //     res.json(newUser.toJSON());
+    // });
+    // });
+    CreateUser(req.body, function(result){
         
     
-    //     res.json(result);
-    // });
+        res.json(result);
+    });
 })
 
 app.get("/verifyUser", (req, res)=>{
