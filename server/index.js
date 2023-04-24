@@ -230,7 +230,7 @@ function CreateUser(user, callback) {
       UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
         if (err || withSameMail) {
           //client.close();
-          return callback({"error": "the user already exists"} || new Error('the user already exists'));
+          return callback({"error": "the user already exists"});
         }
   
         bcrypt.hash(user.password, 10, function (err, hash) {
