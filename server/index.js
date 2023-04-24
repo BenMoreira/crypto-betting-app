@@ -34,8 +34,13 @@ app.get("/getAllUsers", (req, res)=>{
 });
 
 app.get("/login",  (req, res)=>{
-    UserModel.findOne({email: req.body.email}).then((result)=>{
-        bcrypt.compare(req.body.password, result.password, function(error, valid){
+    const auth = new Buffer.from(req.headers.authorization.split(' ')[1],
+        'base64').toString().split(':');
+    const email = auth[0];
+    const pass = auth[1];
+
+    UserModel.findOne({email: email}).then((result)=>{
+        bcrypt.compare(pass, result.password, function(error, valid){
             if(error || !valid){
                 res.json({"error" : "Invalid Password"});
             }
