@@ -52,13 +52,35 @@ app.get("/login",  (req, res)=>{
 
 app.post("/createUser", (req, res)=>{
     console.log(req.body);
-    console.log(req);
-    console.log(result);
-    CreateUser(req.body, function(result){
+    
+    let user = req.body;
+    console.log(user);
+    UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
+    if (err || withSameMail) {
+        //client.close();
+        return res.json({"error": "the user already exists"} || new Error('the user already exists'));
+    }
+
+    bcrypt.hash(user.password, 10, function (err, hash) {
+        if (err) {
+        //client.close();
+        return res.json(err);
+        }
+
+        user.password = hash;
+        //user.tokens = 100;
+        //user.save()
+        let newUser = new UserModel(user);
+        newUser.save();
+        console.log(newUser.toJSON());
+        res.json(newUser.toJSON());
+    });
+    });
+    // CreateUser(req.body, function(result){
         
     
-        res.json({"result" : result});
-    });
+    //     res.json(result);
+    // });
 })
 
 app.get("/verifyUser", (req, res)=>{
@@ -299,6 +321,8 @@ function CreateUser(user, callback) {
           //user.save()
           let newUser = new UserModel(user);
           newUser.save();
+          console.log(newUser.toJSON());
+          callback(newUser.toJSON());
           //callback(newUser);
           //callback(newUser);
         //   user.save(user, function (err, inserted) {
