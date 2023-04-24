@@ -57,6 +57,10 @@ app.get("/login",  (req, res)=>{
     })
 })
 
+app.put("/changePassword", (req, res) => {
+    res.json({"result" : "success"});
+})
+
 app.post("/createUser", (req, res)=>{
     console.log(req.body);
     
