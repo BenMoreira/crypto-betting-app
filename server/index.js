@@ -3,6 +3,7 @@ const express = require("express");
 const uuid = require("uuid");
 const app = express();
 //
+const bcrypt = require("bcrypt");
 const fetch = require("node-fetch");
 const mongoose = require('mongoose')
 const UserModel = require('./models/User')
@@ -32,11 +33,29 @@ app.get("/getAllUsers", (req, res)=>{
     });
 });
 
+app.get("/login",  (req, res)=>{
+    UserModel.findOne({email: req.body.email}).then((result)=>{
+        bcrypt.compare(req.body.password, result.password, function(error, valid){
+            if(error || !valid){
+                res.json({"error" : "Invalid Password"});
+            }
+            else res.json(result);
+        });
+        //res.json(result);
+    })
+})
+
+app.post("/createNewUser", (req, res)=>{
+    CreateUser(req.body, function(result){
+        res.json(result);
+    });
+})
+
 app.get("/getAllWagers", (req, res)=>{
     WagerModel.find({}).then(function(result){
         res.json(result);
     });
-});
+})
 
 app.get("/getAllBets", (req, res) =>{
     BetModel.find({}).then(function(result){
@@ -228,3 +247,47 @@ var fetchCoinDataLoop = setInterval(async function(){
 app.listen(3001, ()=>{
   console.log("SERVER RUNNING ON PORT 3001");
 })
+
+
+function CreateUser(user, callback) {
+    //const bcrypt = require('bcrypt');
+    //const MongoClient = require('mongodb@4.1.0').MongoClient;
+    //const client = new MongoClient('mongodb+srv://robertrecalo:GTBH8o2VeiglBY7E@cluster0.9hupwwm.mongodb.net/test');
+    
+    //client.connect(function (err) {
+      //if (err) return callback(err);
+  
+      //const db = client.db('Crypto-Betting-App');
+      //const users = db.collection('auths');
+      //const accounts = db.collection('users');
+  
+      UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
+        if (err || withSameMail) {
+          //client.close();
+          return callback({"error": "the user already exists"} || new Error('the user already exists'));
+        }
+  
+        bcrypt.hash(user.password, 10, function (err, hash) {
+          if (err) {
+            //client.close();
+            return callback(err);
+          }
+  
+          user.password = hash;
+          //user.tokens = 100;
+          //user.save()
+          let newUser = new UserModel(user);
+          newUser.save();
+          //callback(newUser);
+        //   user.save(user, function (err, inserted) {
+        //     //accounts.insert({"email":user.email, "tokens":100});
+        //     //client.close();
+  
+        //     if (err) return callback(err);
+        //     callback(null);
+        //   });
+        });
+      });
+    };
+  //}
+  

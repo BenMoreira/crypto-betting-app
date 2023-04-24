@@ -4,10 +4,15 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tokens : {
-        type: Number,
+    password : {
+        type: String,
         required: true,
-    },
+    }
+    // },
+    // tokens : {
+    //     type: Number,
+    //     required: true,
+    // },
 });
 
 const UserModel = mongoose.model("auths", UserSchema);
