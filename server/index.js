@@ -50,11 +50,12 @@ app.get("/login",  (req, res)=>{
     })
 })
 
-app.post("/createNewUser", (req, res)=>{
+app.post("/createUser", (req, res)=>{
+    console.log(req.body);
+    console.log(req);
+    console.log(result);
     CreateUser(req.body, function(result){
-        console.log(req.body);
-        console.log(req);
-        console.log(result);
+        
     
         res.json({"result" : result});
     });
@@ -88,11 +89,11 @@ app.post("/newWager", async (req, res)=>{
     res.json(ok);
 });
 
-app.post("/createUser", async (req, res) =>{
-    data = req.body;
-    let bet = UserModel.create({...data});
-    res.send(bet);
-})
+// app.post("/createUser", async (req, res) =>{
+//     data = req.body;
+//     let bet = UserModel.create({...data});
+//     res.send(bet);
+// })
 
 
 app.post("/saveCoin", async (req, res)=>{
