@@ -52,8 +52,23 @@ app.get("/login",  (req, res)=>{
 
 app.post("/createNewUser", (req, res)=>{
     CreateUser(req.body, function(result){
-        res.json(result);
+        console.log(req.body);
+        console.log(req);
+        console.log(result);
+    
+        res.json({"result" : result});
     });
+})
+
+app.get("/verifyUser", (req, res)=>{
+    UserModel.findOne({email : req.body.email}).then((err, result)=>{
+        if(err){
+            res.json(err);
+        }
+        if(result){
+            res.json(result);
+        }
+    })
 })
 
 app.get("/getAllWagers", (req, res)=>{
@@ -265,7 +280,7 @@ function CreateUser(user, callback) {
       //const db = client.db('Crypto-Betting-App');
       //const users = db.collection('auths');
       //const accounts = db.collection('users');
-  
+      console.log(user);
       UserModel.findOne({ email: user.email }).then((err, withSameMail) =>{
         if (err || withSameMail) {
           //client.close();
@@ -283,6 +298,7 @@ function CreateUser(user, callback) {
           //user.save()
           let newUser = new UserModel(user);
           newUser.save();
+          //callback(newUser);
           //callback(newUser);
         //   user.save(user, function (err, inserted) {
         //     //accounts.insert({"email":user.email, "tokens":100});
