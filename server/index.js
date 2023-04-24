@@ -35,7 +35,13 @@ app.get("/getAllUsers", (req, res)=>{
 
 app.get(("/getUserByEmail"), (req, res)=>{
     UserModel.findOne({email: req.body.email}).then((result)=>{
-        res.json(result);
+        //console.log(result);
+        if(!result){
+            res.json({"error": "User not found"});
+        }
+        else{
+            res.json(result);
+        }
     })
 });
 
