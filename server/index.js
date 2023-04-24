@@ -33,6 +33,12 @@ app.get("/getAllUsers", (req, res)=>{
     });
 });
 
+app.get(("/getUserByEmail"), (req, res)=>{
+    UserModel.findOne({email: req.body.email}).then((result)=>{
+        res.json(result);
+    })
+});
+
 app.get("/login",  (req, res)=>{
     const auth = new Buffer.from(req.headers.authorization.split(' ')[1],
         'base64').toString().split(':');
