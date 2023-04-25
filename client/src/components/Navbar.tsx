@@ -1,6 +1,7 @@
 import React from 'react'
 import NavOption from './NavOption'
 import LoginButton from '../components/LoginButton'
+import LogoutButton from '../components/LogoutButton'
 
 export const Navbar = () => {
 
@@ -13,6 +14,7 @@ export const Navbar = () => {
         }) 
         }
         <LoginButton />
+        <LogoutButton />
         </div>
     </nav>
   )

@@ -1,16 +1,31 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { PinnedCryptoState } from '../features/pinnedCryptoSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { PinnedCryptoState, setPins } from '../features/pinnedCryptoSlice';
 import Account from '../components/Account';
 import PinnedCrypto from '../components/PinnedCrypto';
 import { useAuth0 } from "@auth0/auth0-react";
+import { getUserByEmail } from '../API/CoinAPI';
 
 export const Dashboard = () => {
 
   const pinnedCryptos = useSelector((state : PinnedCryptoState) => state.pinnedCryptos);
   const { user, isAuthenticated} = useAuth0();
 
-  useEffect(()=>{console.log(user)},[user]);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    if(user){
+    console.log(user);
+    getUserByEmail("http://localhost:3001", user?.email).then((result) => {
+      dispatch(setPins(result.data.pins));
+    });
+    }
+
+  },[user]);
+
+  useEffect(() =>{
+
+  }, [pinnedCryptos]);
 
   return (
     <div className='bg-coal-800 w-full min-h-screen max-h-full pb-3'>
@@ -48,3 +63,4 @@ export const Dashboard = () => {
     </div>
   )
 }
+

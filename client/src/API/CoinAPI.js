@@ -9,6 +9,14 @@ export function getAllCoinData(URL){
     return Axios.get(URL + "/getCoins").then((response)=> {return(response)});
 }
 
+export function updateUserPins(URL, values){
+    return Axios.patch(URL + "/updateUserPins", values).then((response) => {return(response)});
+}
+
+export function getUserByEmail(URL, email){
+    return Axios.get(URL + "/getUser", { params: {email : email}}).then((response)=> {return(response)});
+}
+
 export function createBet(URL, values){
     return Axios.post(URL + "/createBet", {data: values}).then((response) => {return(response)});
 }

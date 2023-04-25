@@ -6,7 +6,7 @@ export interface PinnedCryptoState {
 }
 
 const initialState: PinnedCryptoState = {
-    pinnedCryptos: ["bitcoin"],
+    pinnedCryptos: [],
   };
   
 
@@ -20,12 +20,15 @@ export const pinnedCryptoSlice = createSlice({
         unpin: (state, action: PayloadAction<String>)=>{
             state.pinnedCryptos = state.pinnedCryptos.filter((crypto: String) => crypto !== action.payload);
         },
+        setPins: (state, action: PayloadAction<Array<String>>)=>{
+            state.pinnedCryptos = action.payload;
+        }
 
        
     }
 })
 
-export const {pin, unpin} = pinnedCryptoSlice.actions;
+export const {pin, unpin, setPins} = pinnedCryptoSlice.actions;
 
 //export const selectPinnedCryptos = (state: RootState) => state.counter.value;
 
