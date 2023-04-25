@@ -3,6 +3,10 @@ import NavOption from './NavOption'
 import LoginButton from '../components/LoginButton'
 import LogoutButton from '../components/LogoutButton'
 import { useAuth0 } from '@auth0/auth0-react'
+import {RiDashboardFill} from 'react-icons/ri'
+import { IconType } from 'react-icons'
+import { AiOutlineStock } from 'react-icons/ai'
+import { IoMdList} from 'react-icons/io'
 
 export const Navbar = () => {
 
@@ -13,7 +17,7 @@ export const Navbar = () => {
         <div className='flex flex-col gap-8 font-light'>
         {
         ["Dashboard", "Leaderboard", "Cryptos"].map((option) => {
-         return <NavOption path={option} key={option}/>
+         return <NavOption path={option} key={option} Icon={option === "Dashboard" ? RiDashboardFill : option === "Leaderboard" ? IoMdList : AiOutlineStock}/>
         }) 
         }
         {

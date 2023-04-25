@@ -5,7 +5,7 @@ import CryptoViewChart from '../components/CryptoViewChart'
 import CryptoList from '../components/CryptoList'
 import { useAuth0 } from '@auth0/auth0-react'
 import { getAllCoinData, updateUserPins } from '../API/CoinAPI'
-import { AiFillPushpin } from 'react-icons/ai'
+import { AiFillPushpin, AiOutlineStock } from 'react-icons/ai'
 import { PinnedCryptoState } from '../features/pinnedCryptoSlice'
 import {pin, unpin} from '../features/pinnedCryptoSlice'
 import CreateBet from '../components/CreateBet'
@@ -69,6 +69,7 @@ export const Cryptos = () => {
       <div className='flex flex-row justify-between px-10 py-10 text-3xl'>
         <div className='text-blue-300 font-light'>
         Cryptos
+        {/* <AiOutlineStock className='w-32 h-32  -mt-10 mt-0'/> */}
         </div>
         <Account />
       </div>
