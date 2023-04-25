@@ -31,3 +31,16 @@ body{
   #strike:focus{
     outline:none !important;
   }
+
+  table{
+    margin-left:auto;
+    margin-right:auto;
+    width: 120px !important;
+  }
+  #tooltipheader{
+    color: #969696 !important;
+  }
+
+  #tooltiptable{
+    margin-top: 4px;
+  }

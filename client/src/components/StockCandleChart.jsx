@@ -3,6 +3,7 @@ import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display';
 import { getCoinData } from '../API/CoinAPI';
+import { addCommasToDollarValue } from './PinnedCrypto';
 
 NoDataToDisplay(Highcharts);
 
@@ -61,17 +62,32 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
           }
         ],
         tooltip: { 
+          useHTML: true,
+          formatter:function(){
+            // eslint-disable-next-line no-undef
+            return '<div>'+
+            "<span id='tooltipheader'>"+Highcharts.dateFormat('%m/%d | %l:%M %p', this.x)+"</span>"
+            
+            +"<table id='tooltiptable'><tr><th>Open</th><td> | $"+addCommasToDollarValue(this.point.open)+"</td></tr><tr><th>High</th><td> | $"+addCommasToDollarValue(this.point.high)+"</td></>"+
+            "<tr><th>Low</th><td>| $"+addCommasToDollarValue(this.point.low)+"</td><br/><tr><th>Close</th><td> | $"+addCommasToDollarValue(this.point.close)+"</td></></table></div>"
+          },
           enabled: true,
           backgroundColor: 'black',
           style: {
             color: 'white',
             fontWeight: 'bold'
           },
-          headerFormat: "", //Header is currently empty, if taken off utc time is shown
+          // headerFormat: {
+            
+          //   //"<p>{Highcharts.dateFormat('%m/%d | %l:%M %p', point.key)}</p>",
+          //  } //Header is currently empty, if taken off utc time is shown
         },
         yAxis:{
             title:{text:undefined},
             labels:{
+              formatter:function(){
+                return '$' + addCommasToDollarValue(this.value);
+              },
               x:25,
               y:-5,
             },

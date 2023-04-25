@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { createBet, getBetsForCoin, getCoinData } from '../API/CoinAPI';
 import { updateBets } from '../features/placedBetsSlice';
+import { addCommasToDollarValue } from './PinnedCrypto';
 
 export type CryptoObject = {
     crypto : String,
@@ -206,7 +207,7 @@ const CreateBet = ({name} : {name : String}) => {
             <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
                 Current Price $
                 <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
-                ${getCurrentPrice().toString()}
+                ${addCommasToDollarValue(getCurrentPrice()).toString()}
                 </div>
             </div>
             <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
@@ -235,13 +236,13 @@ const CreateBet = ({name} : {name : String}) => {
             <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
                 Strike $
                 <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
-                ${strikePercent !== -1 ? betData?.strikePrice : ''}
+                ${strikePercent !== -1 ? addCommasToDollarValue(betData?.strikePrice) : ''}
                 </div>
             </div>
             <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
                 Difference $
                 <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
-                ${strikePercent !== -1 ? betData?.diff : ''}
+                ${strikePercent !== -1 ? addCommasToDollarValue(betData?.diff) : ''}
                 </div>
             </div>
         </div>

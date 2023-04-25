@@ -5,6 +5,7 @@ import { createWager, getCoinData, getUserByEmail, getUserWagersByEmail, updateU
 import { CryptoObject } from './CreateBet';
 import { useAuth0 } from '@auth0/auth0-react';
 import { TokenState, subtractTokens } from '../features/tokenSlice';
+import { addCommasToDollarValue } from './PinnedCrypto';
 
 
 // betID : {
@@ -121,7 +122,7 @@ const PlaceWager = ({name} : {name: String}) => {
         return (
           <div key={bet.betID as Key} className='flex flex-row text-coal-200 text-xl text-center p-3 gap-2'>
             <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
-              ${bet.creationPrice.toString()}
+              ${addCommasToDollarValue(bet.creationPrice).toString()}
             </div>
 
             <div className='bg-coal-700 py-1 font-normal rounded-xl w-[20vw]'>
@@ -133,11 +134,11 @@ const PlaceWager = ({name} : {name: String}) => {
             </div>
 
             <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
-              ${bet.strikePrice.toString()}
+              ${addCommasToDollarValue(bet.strikePrice).toString()}
             </div>
 
             <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
-              ${getCurrentPriceDifference(bet)}
+              ${addCommasToDollarValue(getCurrentPriceDifference(bet))}
             </div>
 
             <div className='text-center py-1 px-5 ml-4 bg-blue-600 hover:bg-blue-800 text-coal-50 rounded-xl'>
