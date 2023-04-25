@@ -71,16 +71,27 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
         },
         yAxis:{
             title:{text:undefined},
+            labels:{
+              x:25,
+              y:-5,
+            },
             softMin: data[1] * 0.95,
             softMax: data[1] * 1.05,
             gridLineColor: "#212121",
         },
         xAxis:[{
             lineColor: "#212121",
+            tickInterval : viewType === 0 ? 0.1 * (24 * 3600 * 1000) : 1 * (24 * 3600 * 1000),
+            //tickPixelInterval : 100,
+            tickLength: 10,
             title:{text:undefined},
             labels:{
+                y:25,
                formatter:function(){
-                    return Highcharts.dateFormat('%l:%M %p',this.value);
+                    if(viewType === 0 )
+                      return Highcharts.dateFormat('%m/%d | %l:%M %p',this.value)
+                    else 
+                    return Highcharts.dateFormat('%m/%d | %l:%M %p',this.value)
                    //return Highcharts.dateFormat('%d %m %Y',this.value);
                }
             }
