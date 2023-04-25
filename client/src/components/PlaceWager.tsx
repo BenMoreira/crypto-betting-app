@@ -106,43 +106,39 @@ const PlaceWager = ({name} : {name: String}) => {
   }
 
   return (
-    <div className='mx-80% p-4 rounded-xl'>
-      <div className='flex flex-row justify-center'>
-        <div>
-        {(((placedBets as any).placedBets) as Bet[]).map(bet=>{
+    <div className='mx-80%'>
+      {(((placedBets as any).placedBets) as Bet[]).map(bet=>{
             let beenPlaced = userWagers?.includes(bet.betID.toString());
-            return (
-            <div key={bet.betID as Key} className='flex flex-row justify-center bg-coal-700 text-coal-200 text-xl p-1 rounded-lg gap-2'>
-              <div className='text-center p-1'>
-                  ${bet.creationPrice.toString()}
-              </div>
+        return (
+          <div key={bet.betID as Key} className='flex flex-row text-coal-200 text-xl text-center p-3 gap-2'>
+            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
+              ${bet.creationPrice.toString()}
+            </div>
 
-              <div className='text-center p-1'>
-                {getTimeString(bet.expirationDate as string).toString()}
-              </div>
+            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[20vw]'>
+              {getTimeString(bet.expirationDate as string).toString()}
+            </div>
 
-              <div className='text-center p-1'>
-                {getStrikePercent(bet)}%
-              </div>
+            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[5vw]'>
+              {getStrikePercent(bet)}%
+            </div>
 
-              <div className='text-center p-1'>
-                ${bet.strikePrice.toString()}
-              </div>
+            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
+              ${bet.strikePrice.toString()}
+            </div>
 
-              <div className='text-center p-1'>
-                ${getCurrentPriceDifference(bet)}
-              </div>
+            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
+              ${getCurrentPriceDifference(bet)}
+            </div>
 
-              <div className='text-center p-1'>
-                  <button onClick={(e) => placeWager(e as unknown as MouseEvent, bet)} disabled={beenPlaced} className={`` + (beenPlaced ? "text-coal-500" : "text-coal-50")}>
+            <div className='text-center py-1 px-5 ml-4 bg-blue-600 hover:bg-blue-800 text-coal-50 rounded-xl'>
+              <button onClick={(e) => placeWager(e as unknown as MouseEvent, bet)} disabled={beenPlaced} className={`` + (beenPlaced ? "text-coal-500" : "text-coal-50")}>
                     {beenPlaced ? "Placed" : "Place Wager"}
                   </button>
-              </div>
             </div>
-            )
+          </div>
+          )
         })}
-        </div>
-      </div>
     </div>
   )
 }
@@ -197,4 +193,32 @@ export default PlaceWager
     </table>
         
     </div>
+
+
+
+              <div className='flex flex-row bg-coal-700 rounded-lg'>
+                <div className='text-center p-1'>
+                  ${bet.creationPrice.toString()}
+                </div>
+
+                <div className='text-center p-1'>
+                  {getTimeString(bet.expirationDate as string).toString()}
+                </div>
+
+                <div className='text-center p-1'>
+                  {getStrikePercent(bet)}%
+                </div>
+
+                <div className='text-center p-1'>
+                  ${bet.strikePrice.toString()}
+                </div>
+
+                <div className='text-center p-1'>
+                  ${getCurrentPriceDifference(bet)}
+                </div>
+              </div>
+
+              <div className='text-center p-1 bg-blue-400 text-coal-700 rounded-lg'>
+                  <button onClick={() => placeWager(bet)}> Place Wager</button>
+              </div>
 */
