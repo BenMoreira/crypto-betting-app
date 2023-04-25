@@ -247,7 +247,7 @@ const CreateBet = ({name} : {name : String}) => {
         </div>
 
         <div className='flex flex-row justify-center pt-5'>
-            <button onClick={() => saveBet()} className='bg-coal-700 rounded-lg text-coal-200 text-xl font-bold p-3'> Place Bet</button>
+            <button onClick={() => saveBet()} className='bg-blue-600 rounded-lg text-coal-50 text-2xl p-3 mt-3 w-1/2 hover:bg-blue-800'> Create Bet</button>
         </div>
     </div>
   )
