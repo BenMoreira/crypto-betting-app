@@ -6,6 +6,26 @@ import { getCoinData, updateUserPins } from '../API/CoinAPI';
 import { PinnedCryptoState, unpin } from '../features/pinnedCryptoSlice';
 import QuickQuoteChart from './QuickQuoteChart';
 
+export function addCommasToDollarValue(value : any) {
+  // Convert value to string
+  value = value.toString();
+
+  // Split the value into dollars and cents
+  let [dollars, cents] = value.split(".");
+
+  // Add commas to dollars
+  dollars = dollars.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // Reassemble the value
+  if (cents) {
+    value = dollars + "." + cents;
+  } else {
+    value = dollars;
+  }
+
+  return value;
+}
+
 const PinnedCrypto = ({name} : {name : String}) => {
 
 
@@ -14,10 +34,14 @@ const PinnedCrypto = ({name} : {name : String}) => {
   const dispatch = useDispatch();
   const { user, isAuthenticated} = useAuth0();
 
+
+
   useEffect(() => {
     let d = getCoinData("http://localhost:3001", name);
     d.then(res => {setCurrentPrice(res.data.price)});
   },[name]);
+
+  
 
   function unpinCrypto(name : String){
     dispatch(unpin(name));
@@ -33,7 +57,7 @@ const PinnedCrypto = ({name} : {name : String}) => {
 
         <div className='flex items-baseline gap-1'>
         <div className='text-coal-200 font-extralight'>
-          ${Math.trunc(currentPrice * 1000) / 1000}
+          ${addCommasToDollarValue(Math.trunc(currentPrice * 1000) / 1000)}
         </div>
 
         <div className='text-coal-200' onClick={() => unpinCrypto(name)}>

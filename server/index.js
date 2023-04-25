@@ -163,6 +163,26 @@ app.patch("/updateUserPins", async (req, res) =>{
     })
 })
 
+app.patch("/updateUserTokens", async (req, res) =>{
+    
+    let data = req.body
+
+    const filter = { email: data.email };
+
+    const update = { tokens: data.tokens };
+
+    UserModel.findOneAndUpdate(filter, update, {
+        //this makes the findOneAndUpdate function return the new document!! not the old oneee
+        upsert: true,
+        returnDocument: 'after',
+      }).then(result => {
+        if(!result) 
+            res.json({"error" : "User not found"});
+        else
+            res.json(result);
+    })
+})
+
 
 app.get("/getCoins", async (req, res)=>{
     let c =  await CoinModel.find({});

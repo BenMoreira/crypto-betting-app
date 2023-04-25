@@ -13,6 +13,14 @@ export function getUserWagersByEmail(URL, email){
     return Axios.get(URL + "/getUserWagersByEmail", { params: {email : email}}).then((response)=> {return(response)});
 }
 
+export function getAllUsers(URL){
+    return Axios.get(URL + "/getAllUsers").then((response)=> {return(response)});
+}
+
+export function updateUserTokens(URL, values){
+    return Axios.patch(URL + "/updateUserTokens", values).then((response) => {return(response)});
+}
+
 export function updateUserPins(URL, values){
     return Axios.patch(URL + "/updateUserPins", values).then((response) => {return(response)});
 }

@@ -3,19 +3,28 @@ import {MdOutlineSettings} from 'react-icons/md';
 import {GiToken} from 'react-icons/gi';
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from './LoginButton';
+import { useSelector, useDispatch } from 'react-redux';
+import { TokenState, updateTokens } from '../features/tokenSlice';
+import { getUserByEmail } from '../API/CoinAPI';
 
 const Account = () => {
 
-    const [tokens, setTokens] = useState<Number>(0);
+    const userTokens = useSelector((state : TokenState) => state.tokens);
 
     const {user, isAuthenticated} = useAuth0();
+    const dispatch = useDispatch();
 
 
     useEffect(()=>{
-        if(isAuthenticated){
-            setTokens(100);
+        if(user){
+            getUserByEmail("http://localhost:3001", user.email).then((user) =>
+            {
+                //console.log(user.data.tokens);
+                dispatch(updateTokens(user.data.tokens));
+            })
         }
-    },[isAuthenticated, user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[user, isAuthenticated])
 
 
   return (
@@ -35,7 +44,7 @@ const Account = () => {
             <>
             
             <GiToken /> 
-            {tokens}
+            {userTokens.tokens}
             </>
             : <></>
             }

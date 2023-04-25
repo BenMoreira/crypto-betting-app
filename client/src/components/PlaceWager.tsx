@@ -1,9 +1,10 @@
 import React, {Key, useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { PlacedBetsState, Bet } from '../features/placedBetsSlice';
-import { createWager, getCoinData, getUserWagersByEmail } from '../API/CoinAPI';
+import { createWager, getCoinData, getUserByEmail, getUserWagersByEmail, updateUserTokens } from '../API/CoinAPI';
 import { CryptoObject } from './CreateBet';
 import { useAuth0 } from '@auth0/auth0-react';
+import { TokenState, subtractTokens } from '../features/tokenSlice';
 
 
 // betID : {
@@ -34,10 +35,12 @@ export type Wager = {
 const PlaceWager = ({name} : {name: String}) => {
 
     const placedBets = useSelector((state : PlacedBetsState) => state.placedBets);
+    const userTokens = useSelector((state : TokenState) => state.tokens);
 
     const [data, setData] = useState<CryptoObject>();
     const [userWagers, setUserWagers] = useState<String>();
     const {user, isAuthenticated} = useAuth0();
+    const dispatch = useDispatch();
 
     useEffect(() =>{
         //console.log((placedBets as any).placedBets);
@@ -50,7 +53,7 @@ const PlaceWager = ({name} : {name: String}) => {
   useEffect(() =>{
     if(user){
       getUserWagersByEmail("http://localhost:3001", user.email).then(result=>{
-        console.log(result.data);
+        //console.log(result.data);
 
         let wagers = result.data.map(function(wager : Wager){
           return wager.betID;
@@ -62,18 +65,24 @@ const PlaceWager = ({name} : {name: String}) => {
 
 
   function placeWager(e : MouseEvent ,bet : Bet){
-    
+    let wagerVal = 20;
 
     if(user){
       if(userWagers?.includes(bet.betID.toString())) return;
-    console.log("User : " + user.email + " placed Wager on : betID = " +  bet.betID + "");
+    //console.log("User : " + user.email + " placed Wager on : betID = " +  bet.betID + "");
     let wagerObject = {
       betID: bet.betID,
       userID : user.email,
       placedDate : bet.creationDate,
-      wagerValue : 10,
+      wagerValue : wagerVal,
     }
     createWager("http://localhost:3001", wagerObject);
+
+    dispatch(subtractTokens(wagerVal));
+
+    updateUserTokens("http://localhost:3001", {email : user.email, tokens: userTokens.tokens - wagerVal})
+
+
       if(e.currentTarget){
         (e.currentTarget as HTMLButtonElement).disabled = true;
         (e.currentTarget as HTMLButtonElement).textContent = "Placed";
