@@ -33,6 +33,20 @@ app.get("/getAllUsers", (req, res)=>{
     });
 });
 
+/** FOR CLIENT USES ONLY */
+app.get(("/getUser"), (req, res)=>{
+    UserModel.findOne({email: req.query.email}).then((result)=>{
+        //console.log(result);
+        if(!result){
+            res.json({"error": "User not found"});
+        }
+        else{
+            res.json(result);
+        }
+    })
+});
+
+/** FOR Auth0 PURPOSES ONLY */
 app.get(("/getUserByEmail"), (req, res)=>{
     UserModel.findOne({email: req.body.email}).then((result)=>{
         //console.log(result);
@@ -96,10 +110,7 @@ app.get("/getAllBets", (req, res) =>{
     });
 });
 
-app.post("/newWager", async (req, res)=>{
-    await ok.save();
-    res.json(ok);
-});
+
 
 
 app.post("/saveCoin", async (req, res)=>{
@@ -119,6 +130,25 @@ app.post("/saveCoin", async (req, res)=>{
     //res.json(call);
 })
 
+app.patch("/updateUserPins", async (req, res) =>{
+    
+    let data = req.body
+
+    const filter = { email: data.email };
+
+    const update = { pins: data.pins };
+    console.log(req.body);
+    UserModel.findOneAndUpdate(filter, update, {
+        //this makes the findOneAndUpdate function return the new document!! not the old oneee
+        upsert: true,
+        returnDocument: 'after',
+      }).then(result => {
+        if(!result) 
+            res.json({"error" : "User not found"});
+        else
+            res.json(result);
+    })
+})
 
 
 app.get("/getCoins", async (req, res)=>{
@@ -257,3 +287,9 @@ function CreateUser(user, callback) {
         });
       });
     };
+
+
+    // app.post("/newWager", async (req, res)=>{
+//     await ok.save();
+//     res.json(ok);
+// });

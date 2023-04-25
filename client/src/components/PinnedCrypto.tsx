@@ -1,19 +1,28 @@
 import React, {useState, useEffect} from 'react'
+import { useAuth0 } from '@auth0/auth0-react';
 import {AiFillPushpin} from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
-import { getCoinData } from '../API/CoinAPI';
-import { unpin } from '../features/pinnedCryptoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCoinData, updateUserPins } from '../API/CoinAPI';
+import { PinnedCryptoState, unpin } from '../features/pinnedCryptoSlice';
 import QuickQuoteChart from './QuickQuoteChart';
 
 const PinnedCrypto = ({name} : {name : String}) => {
 
+
+  const pinnedCryptos = useSelector((state : PinnedCryptoState) => state.pinnedCryptos);
   const [currentPrice, setCurrentPrice] = useState(0);
   const dispatch = useDispatch();
+  const { user, isAuthenticated} = useAuth0();
 
   useEffect(() => {
     let d = getCoinData("http://localhost:3001", name);
     d.then(res => {setCurrentPrice(res.data.price)});
   },[name]);
+
+  function unpinCrypto(name : String){
+    dispatch(unpin(name));
+    updateUserPins("http://localhost:3001", {email: user?.email, pins: (pinnedCryptos as any).pinnedCryptos.filter((x: String) => x !== name)});
+  }
 
   return (
     <div className='flex flex-col w-[90%] mx-[5%] h-[20vh]'>
@@ -27,7 +36,7 @@ const PinnedCrypto = ({name} : {name : String}) => {
           ${Math.trunc(currentPrice * 1000) / 1000}
         </div>
 
-        <div className='text-coal-200' onClick={() => dispatch(unpin(name))}>
+        <div className='text-coal-200' onClick={() => unpinCrypto(name)}>
           <AiFillPushpin className='w-4 h-4 text-coal-500'/>
         </div>
         </div>

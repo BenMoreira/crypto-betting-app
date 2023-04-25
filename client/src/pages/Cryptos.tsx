@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Account from '../components/Account'
 import CryptoViewChart from '../components/CryptoViewChart'
 import CryptoList from '../components/CryptoList'
-import { getAllCoinData } from '../API/CoinAPI'
+import { useAuth0 } from '@auth0/auth0-react'
+import { getAllCoinData, updateUserPins } from '../API/CoinAPI'
 import { AiFillPushpin } from 'react-icons/ai'
 import { PinnedCryptoState } from '../features/pinnedCryptoSlice'
 import {pin, unpin} from '../features/pinnedCryptoSlice'
@@ -16,6 +17,7 @@ export const Cryptos = () => {
   const pinnedCryptos = useSelector((state : PinnedCryptoState) => state.pinnedCryptos);
   const dispatch = useDispatch();
 
+  const {user}= useAuth0();
   const URL = "http://localhost:3001";
   const [selectedCoin, selectCoin] = useState("bitcoin");
   
@@ -28,7 +30,6 @@ export const Cryptos = () => {
 
   useEffect(() => {
     //console.log(pinnedCryptos);
-
   }, [selectedCoin])
 
   const func = () => {
@@ -50,9 +51,11 @@ export const Cryptos = () => {
   const togglePin = (coin : String) =>{
     if(isPinned(coin)){
       dispatch(unpin(coin));
+      updateUserPins("http://localhost:3001", {email: user?.email, pins: (pinnedCryptos as any).pinnedCryptos.filter((x: String) => x !== coin)});
     }
     else{
       dispatch(pin(coin));
+      updateUserPins("http://localhost:3001", {email: user?.email, pins: [...(pinnedCryptos as any).pinnedCryptos, coin]});
     }
   }
 
