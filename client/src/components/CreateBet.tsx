@@ -107,10 +107,11 @@ const CreateBet = ({name} : {name : String}) => {
         let date = new Date();
         let tomorrow = new Date(date);
         tomorrow.setDate(tomorrow.getDate() + daysExpiry);
-        tomorrow.setHours(15, 0, 0);
+        tomorrow.setHours(0, 0, 0);
         tomorrow.setMilliseconds(0);
+
         //console.log(tomorrow.toLocaleString());
-        return(tomorrow.getTime());
+        return(tomorrow.getTime() - (tomorrow.getTimezoneOffset() * 60 * 1000));
     }
 
     function saveBet(){

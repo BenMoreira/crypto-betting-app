@@ -137,7 +137,7 @@ app.patch("/updateUserPins", async (req, res) =>{
     const filter = { email: data.email };
 
     const update = { pins: data.pins };
-    console.log(req.body);
+
     UserModel.findOneAndUpdate(filter, update, {
         //this makes the findOneAndUpdate function return the new document!! not the old oneee
         upsert: true,
@@ -249,6 +249,69 @@ var fetchCoinDataLoop = setInterval(async function(){
 
             //clearInterval(requestLoop);
       }, 240000);
+
+
+function isPast(time) {
+    let date = new Date();
+    const currentTime = new Date().getTime();
+    return time <= (currentTime);
+}
+
+function formatDate(milliseconds) {
+    const date = new Date(milliseconds);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${day}-${month}-${year}`;
+  }
+
+async function getHistoricPrice(coinName, UTCMillis){
+    let call = await fetch("https://api.coingecko.com/api/v3/coins/" + coinName + "/history?date=" + formatDate(parseInt(UTCMillis)));
+    return call.json().then(res => {return res});
+}
+
+
+
+var betResolution = setInterval(async function(){
+
+    BetModel.find({}).then(result =>{
+        result.forEach(bet =>{
+            if(isPast(bet.expirationDate)){
+                let historicPrice = getHistoricPrice(bet.crypto, bet.expirationDate);
+                historicPrice.then(async result => {
+                    let currentPrice = result.market_data.current_price.usd;
+                    if(currentPrice){
+                    if(bet.strikePrice > bet.creationPrice){
+                        if(currentPrice >= bet.strikePrice){
+                            console.log("Positive Strike Reached!");
+                            await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: 1});
+                        } 
+                        else{
+                            console.log("Failed to Reach Strike!");
+                            await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: -1});
+                        }
+                    }
+                    else if(bet.strikePrice < bet.creationPrice){
+                        if(currentPrice <= bet.strikePrice){
+                            console.log("Negative Strike Reached!");
+                            await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: 1});
+                        }
+                        else{
+                            console.log("Failed to Reach Strike!");
+                            await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: -1});
+                        }
+                    }
+                    else console.log("No Strike Reached!");
+                    }
+                });
+            
+            }
+        })
+    })
+    clearInterval(betResolution);
+  }, 1000);
+
+
       // If you ever want to stop it...  clearInterval(requestLoop)
 
 app.listen(3001, ()=>{
