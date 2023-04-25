@@ -303,11 +303,37 @@ async function getHistoricPrice(coinName, UTCMillis){
     return call.json().then(res => {return res});
 }
 
+async function resolveWagers(bet){
+    //find all the Wagers that have correspond this bet
+    await WagerModel.find({betID : bet.betID}).then(wagers =>{
+        //loop throuh them all, and find the user that is attached to each one
+        wagers.forEach(async wager =>{
+            UserModel.findOne({email : wager.userID}).then(async user=>{
+                //Update the user, rewarding them with double the wager value
+                await UserModel.updateOne({email : user.email}, {tokens : (user.tokens + wager.wagerValue * 2)});
+            })
+            await WagerModel.findOneAndRemove({betID : wager.betID, userID : wager.userID});
+        })
+        //remove the wager from the wager table, since it has been resolved
+    })
+    //update the status code of the bet to 1 (meaning it resolved with a successful outcome)
+    await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: 1});
+    console.log("Wagers for betID : " + bet.betID + " were resolved successfully");  
+}
 
+async function deleteWagers(bet){
+    //Loop through the wagers and remove the ones that match the current betID, since they are now expired
+    await WagerModel.find({betID : bet.betID}).then(wagers =>{
+        wagers.forEach(async wager =>{
+            await WagerModel.findOneAndRemove({betID : wager.betID, userID : wager.userID});
+        })
+    });
+    console.log("Wagers for betID : " + bet.betID + " were deleted successfully");  
+}
 
 var betResolution = setInterval(async function(){
 
-    BetModel.find({}).then(result =>{
+    BetModel.find({statusCode : 0}).then(result =>{
         result.forEach(bet =>{
             if(isPast(bet.expirationDate)){
                 let historicPrice = getHistoricPrice(bet.crypto, bet.expirationDate);
@@ -317,19 +343,27 @@ var betResolution = setInterval(async function(){
                     if(bet.strikePrice > bet.creationPrice){
                         if(currentPrice >= bet.strikePrice){
                             console.log("Positive Strike Reached!");
-                            await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: 1});
+                            await resolveWagers(bet);
                         } 
                         else{
+                            
+                            deleteWagers(bet);
                             console.log("Failed to Reach Strike!");
                             await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: -1});
                         }
                     }
                     else if(bet.strikePrice < bet.creationPrice){
+                        console.log(bet.strikePrice);
+                        console.log(currentPrice);
                         if(currentPrice <= bet.strikePrice){
                             console.log("Negative Strike Reached!");
-                            await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: 1});
+                            await resolveWagers(bet);
+
                         }
                         else{
+
+                            
+                            deleteWagers(bet);
                             console.log("Failed to Reach Strike!");
                             await BetModel.findOneAndUpdate({betID : bet.betID}, {statusCode: -1});
                         }
@@ -341,8 +375,8 @@ var betResolution = setInterval(async function(){
             }
         })
     })
-    clearInterval(betResolution);
-  }, 1000);
+    //clearInterval(betResolution);
+  }, 60000);
 
 
       // If you ever want to stop it...  clearInterval(requestLoop)
