@@ -94,7 +94,7 @@ export const Cryptos = () => {
         <div className='p-5 mx-5 rounded-x'>
           <div className='rounded-xl w-100% bg-coal-900'>
             <div className='flex'>
-              <button className='rounded-xl w-60 bg-coal-800 text-blue-300 mx-4 mt-4 py-1 px-2' 
+              <button className='rounded-xl w-60 bg-coal-800 hover:bg-coal-500 text-blue-300 mx-4 mt-4 py-1 px-2' 
               onClick={() => {
                 if(viewType === 0) {setViewtype(1);}
                 else {setViewtype(0)}

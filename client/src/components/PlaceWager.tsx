@@ -1,7 +1,7 @@
 import React, {Key, useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { PlacedBetsState, Bet } from '../features/placedBetsSlice';
-import { createWager, getCoinData } from '../API/CoinAPI';
+import { createWager, getCoinData, getUserWagersByEmail } from '../API/CoinAPI';
 import { CryptoObject } from './CreateBet';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -36,8 +36,8 @@ const PlaceWager = ({name} : {name: String}) => {
     const placedBets = useSelector((state : PlacedBetsState) => state.placedBets);
 
     const [data, setData] = useState<CryptoObject>();
-    const { user, isAuthenticated} = useAuth0();
-    const userEmail = "benjamin@g.com";
+    const [userWagers, setUserWagers] = useState<String>();
+    const {user, isAuthenticated} = useAuth0();
 
     useEffect(() =>{
         //console.log((placedBets as any).placedBets);
@@ -47,16 +47,38 @@ const PlaceWager = ({name} : {name: String}) => {
       getCryptoData(name);
   },[name]);
 
+  useEffect(() =>{
+    if(user){
+      getUserWagersByEmail("http://localhost:3001", user.email).then(result=>{
+        console.log(result.data);
 
-  function placeWager(bet : Bet){
-    console.log("User : " + userEmail + " placed Wager on : betID = " +  bet.betID + "");
+        let wagers = result.data.map(function(wager : Wager){
+          return wager.betID;
+        });
+        setUserWagers(wagers);
+      })
+    }
+},[user]);
+
+
+  function placeWager(e : MouseEvent ,bet : Bet){
+    
+
+    if(user){
+      if(userWagers?.includes(bet.betID.toString())) return;
+    console.log("User : " + user.email + " placed Wager on : betID = " +  bet.betID + "");
     let wagerObject = {
       betID: bet.betID,
-      userID : userEmail,
+      userID : user.email,
       placedDate : bet.creationDate,
       wagerValue : 10,
     }
     createWager("http://localhost:3001", wagerObject);
+      if(e.currentTarget){
+        (e.currentTarget as HTMLButtonElement).disabled = true;
+        (e.currentTarget as HTMLButtonElement).textContent = "Placed";
+      }
+    }
   }
 
   function getStrikePercent(bet : Bet){
@@ -78,7 +100,8 @@ const PlaceWager = ({name} : {name: String}) => {
   }
 
   function getTimeString(time : string){
-    let date = new Date(parseInt(time));
+    let d = new Date();
+    let date = new Date(parseInt(time) + (d.getTimezoneOffset() * 60 * 1000));
     return date.toLocaleString();
   }
 
@@ -87,6 +110,7 @@ const PlaceWager = ({name} : {name: String}) => {
       <div className='flex flex-row justify-center'>
         <div>
         {(((placedBets as any).placedBets) as Bet[]).map(bet=>{
+            let beenPlaced = userWagers?.includes(bet.betID.toString());
             return (
             <div key={bet.betID as Key} className='flex flex-row justify-center bg-coal-700 text-coal-200 text-xl p-1 rounded-lg gap-2'>
               <div className='text-center p-1'>
@@ -110,7 +134,9 @@ const PlaceWager = ({name} : {name: String}) => {
               </div>
 
               <div className='text-center p-1'>
-                  <button onClick={() => placeWager(bet)}> Place Wager</button>
+                  <button onClick={(e) => placeWager(e as unknown as MouseEvent, bet)} disabled={beenPlaced} className={`` + (beenPlaced ? "text-coal-500" : "text-coal-50")}>
+                    {beenPlaced ? "Placed" : "Place Wager"}
+                  </button>
               </div>
             </div>
             )

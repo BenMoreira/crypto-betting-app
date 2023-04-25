@@ -33,6 +33,19 @@ app.get("/getAllUsers", (req, res)=>{
     });
 });
 
+app.get(("/getUserWagersByEmail"), (req, res)=>{
+    WagerModel.find({userID: req.query.email}).then((result)=>{
+        //console.log(result);
+        if(!result){
+            res.json({"error": "No Wagers found"});
+        }
+        else{
+            res.json(result);
+        }
+    })
+});
+
+
 /** FOR CLIENT USES ONLY */
 app.get(("/getUser"), (req, res)=>{
     UserModel.findOne({email: req.query.email}).then((result)=>{
