@@ -127,8 +127,8 @@ const PlaceWager = ({name} : {name: String}) => {
         bet1 : any, bet2 : any) => bet1.expirationDate < bet2.expirationDate ? -1 : 1).map(bet=>{
             let beenPlaced = userWagers?.includes(bet.betID.toString());
         return (
-          <div className='rounded-2xl bg-coal-900'>
-            <div key={bet.betID as Key} className='flex flex-row justify-between text-xl items-center text-coal-200 py-2 my-2 hover:bg-coal-700 text-center'>
+          <div className=''>
+            <div key={bet.betID as Key} className='flex flex-row justify-between text-xl items-center text-coal-200 py-2 hover:bg-coal-700 text-center'>
               <div className=' py-1 font-normal w-[7vw]'>
                 ${addCommasToDollarValue(bet.creationPrice).toString()}
               </div>

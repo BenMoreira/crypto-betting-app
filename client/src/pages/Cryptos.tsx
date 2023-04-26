@@ -65,7 +65,7 @@ export const Cryptos = () => {
   }, []);
 
   return (
-    <div className='bg-coal-800 w-full min-h-screen max-h-full'>
+    <div className='bg-coal-950 w-full min-h-screen max-h-full'>
       <div className='flex flex-row justify-between px-10 py-10 text-3xl'>
         <div className='text-blue-300 font-light'>
         Cryptos
@@ -108,12 +108,12 @@ export const Cryptos = () => {
           </div>
       </div>
 
-      <div className='flex flex-row justify-between gap-2 mx-10'>
+      <div className='flex flex-row justify-between gap-5 mx-10'>
           <div className='bg-transparent w-4/12 h-fit rounded-xl'>
             <div className='text-coal-200 text-2xl mb-4 text-center'>
               <span className='text-4xl'>{selectedCoin.charAt(0).toUpperCase() + selectedCoin.slice(1).toLowerCase()}</span> <span className='text-xl font-extralight px-2'>Betting Spread</span>
             </div>
-            <div className='mx-5 w-100%'>
+            <div className='w-100%'>
             <CreateBet name={selectedCoin}/>
             </div>
           </div>
@@ -122,7 +122,9 @@ export const Cryptos = () => {
             <div className='mb-4 text-center mx-auto w-full'>
             Active Bets
             </div>
+            <div className='rounded-2xl bg-coal-900'>
             <PlaceWager name={selectedCoin}/>
+            </div>
           </div>
       </div>
     </div>

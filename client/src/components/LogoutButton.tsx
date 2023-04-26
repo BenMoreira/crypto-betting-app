@@ -9,7 +9,7 @@ const LogoutButton = () => {
 
 
   return (
-    <button onClick={() => logout()} className='text-coal-300'>Log Out</button>
+    <button onClick={() => logout()} className='w-full text-coal-50 py-1 px-2'>Log Out</button>
   )
 }
 

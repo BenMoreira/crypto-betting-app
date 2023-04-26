@@ -9,7 +9,7 @@ const LoginButton = () => {
 
 
   return (
-    <button onClick={() => loginWithRedirect()} className='text-coal-300'>Log In</button>
+    <button onClick={() => loginWithRedirect()} className='w-[50%] text-coal-50 bg-blue-500 py-1 px-4'>Log In</button>
   )
 }
 

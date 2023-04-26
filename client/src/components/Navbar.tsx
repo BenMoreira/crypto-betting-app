@@ -13,8 +13,8 @@ export const Navbar = () => {
   const {user}= useAuth0();
 
   return (
-    <nav className='w-[200px] fixed left-0 h-screen bg-coal-900 flex flex-col pt-20 items-center'>
-        <div className='flex flex-col gap-8 font-light'>
+    <nav className='w-[200px] fixed left-0 h-screen bg-coal-925 flex flex-col pt-20 justify-start items-center'>
+        <div className='flex flex-col gap-10 font-light'>
         {
         ["Dashboard", "Leaderboard", "Cryptos"].map((option) => {
          return <NavOption path={option} key={option} Icon={option === "Dashboard" ? RiDashboardFill : option === "Leaderboard" ? IoMdList : AiOutlineStock}/>

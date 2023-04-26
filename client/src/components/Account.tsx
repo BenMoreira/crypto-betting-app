@@ -6,11 +6,13 @@ import LoginButton from './LoginButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { TokenState, updateTokens } from '../features/tokenSlice';
 import { getUserByEmail } from '../API/CoinAPI';
+import PopupModal from './PopupModal';
 
 const Account = () => {
 
     const userTokens = useSelector((state : TokenState) => state.tokens);
 
+    const [showModal, setShowModal] = useState(false);
     const {user, isAuthenticated} = useAuth0();
     const dispatch = useDispatch();
 
@@ -33,8 +35,9 @@ const Account = () => {
             <div className='text-blue-300 font-light'>
                 {user ? user?.nickname : <LoginButton />}
             </div>
-            <div className='text-coal-500 text-2xl'>
-                <MdOutlineSettings />
+            <div className='text-coal-200 text-2xl'>
+                <MdOutlineSettings onClick={()=>{setShowModal(!showModal)}} />
+                {showModal ? <PopupModal shown={showModal} toggleShown={setShowModal}/> : <></>}
             </div>
         </div>
 

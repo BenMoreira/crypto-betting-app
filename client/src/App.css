@@ -1,3 +1,10 @@
+* {
+  -webkit-user-select: none; /* Safari, Chrome, and Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently not supported by any browser */
+}
+
 body{
     overflow-x:hidden !important;
     font-family: 'Roboto', sans-serif !important;
