@@ -22,18 +22,17 @@ const CryptoList = ({selectCoin, selectedCoin, data, ...props}) => {
 
 
     return (
-        <div className='flex flex-col justify-between bg-coal-900 h-full overflow-auto overflow-x-hidden scroll-smooth rounded-2xl' id="cryptolist">
+        <div className='flex flex-col justify-start bg-transparent h-full overflow-auto overflow-x-hidden scroll-smooth rounded-2xl' id="cryptolist">
             {
             data.map(token => {
                 return (
-                    <div key={token.crypto} className={`${selectedCoin === token.crypto ? 'bg-coal-900 text-blue-300':'bg-coal-900 text-coal-400'}
+                    <div key={token.crypto} className={`min-h-[10%] ${selectedCoin === token.crypto ? 'bg-coal-900 text-blue-300':'bg-coal-900 text-coal-400'}
                      select-none hover:bg-coal-500 w-100% h-[5vh]  flex flex-row
                      justify-center items-center text-xl px-5  hover:text-coal-100 cursor-pointer`}
                         onClick={() => selectCoin(token.crypto)}>
                         <div className='w-4/12'>{idDict[token.crypto]?.toUpperCase()}</div>
                         <div className='capitalize w-4/12'>{token.crypto}</div>
                         <div className='w-4/12'>${addCommasToDollarValue(token.price)}</div>
-                        <div></div>
                     </div>
                 )
             })

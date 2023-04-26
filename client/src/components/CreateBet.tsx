@@ -202,17 +202,22 @@ const CreateBet = ({name} : {name : String}) => {
     }
 
   return (
-    <div className='mx-80% p-4 rounded-xl'>
-        <div className='flex flex-row justify-center gap-6 text-blue-300 text-xl text-center'>
-            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
+    <>
+    <div className='w-full rounded-2xl bg-coal-900 px-5 py-2'>
+        <div className='flex flex-col gap-2 justify-center text-blue-300 text-xl text-left'>
+            <div className='flex justify-around w-full py-1 font-normal'>
+                <div className='w-6/12'>
                 Current Price $
-                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
+                </div>
+                <div className='w-6/12 text-center py-1 font-normal text-coal-100'>
                 ${addCommasToDollarValue(getCurrentPrice()).toString()}
                 </div>
             </div>
-            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
+            <div className='flex justify-around  py-1 font-normal'>
+                <div className='w-6/12'>
                 Expiry
-                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
+                </div>
+                <div className='w-6/12 py-1 font-normal text-coal-100'>
                 <select id="expiry" name="expiryday" className='bg-transparent w-full text-center' value={daysExpiry as any} onChange={(e) => handleExpiryChange(e)}>
                     <option value={1}>1 Day</option>
                     <option value={2}>2 Days</option>
@@ -220,10 +225,12 @@ const CreateBet = ({name} : {name : String}) => {
                 </select>
                 </div>
             </div>
-            <div className='bg-coal-700 py-1 px-1 font-normal rounded-xl'>
-                Strike %
-                <div className='bg-coal-700 py-1 font-normal rounded-xl'>
-                <select id="strike" name="strikepercent" className='bg-transparent w-full text-coal-200 text-center' value={strikePercent} onChange={(e) => handleSelectChange(e)}>
+            <div className='flex justify-around py-1 font-normal'>
+                <div className='w-6/12'>
+                    Strike %
+                </div>
+                <div className='w-6/12 py-1 font-normal'>
+                <select id="strike" name="strikepercent" className='bg-transparent w-full text-coal-100 text-center' value={strikePercent} onChange={(e) => handleSelectChange(e)}>
                     <option value={-1}> -- select an option -- </option>
                     {/* {strikes[0] === false ? <option value={.98} disabled={strikes[0]}>-2%</option> : <></>} */}
                     <option value={.98} disabled={strikes[0]}>-2%</option>
@@ -233,24 +240,32 @@ const CreateBet = ({name} : {name : String}) => {
                 </select>
                 </div>
             </div>
-            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
-                Strike $
-                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
-                ${strikePercent !== -1 ? addCommasToDollarValue(betData?.strikePrice) : ''}
+            <div className='flex justify-around py-1 font-normal'>
+                <div className='w-6/12'>
+                    Strike $
+                </div>
+                <div className='w-6/12 text-center py-1 font-normal text-coal-100'>
+                ${strikePercent != -1 ? addCommasToDollarValue(betData?.strikePrice) : <></>}
                 </div>
             </div>
-            <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl'>
-                Difference $
-                <div className='bg-coal-700 py-1 px-5 font-normal rounded-xl text-coal-200'>
-                ${strikePercent !== -1 ? addCommasToDollarValue(betData?.diff) : ''}
+            <div className='flex justify-around py-1 font-normal'>
+                <div className='w-6/12'>
+                    Difference $
+                </div>
+                <div className='w-6/12 text-center py-1 font-normal text-coal-100'>
+                ${strikePercent != -1 ? addCommasToDollarValue(betData?.diff) : <></>}
                 </div>
             </div>
         </div>
 
-        <div className='flex flex-row justify-center pt-5'>
-            <button onClick={() => saveBet()} className='bg-blue-600 rounded-lg text-coal-50 text-2xl p-3 mt-3 w-1/2 hover:bg-blue-800'> Create Bet</button>
-        </div>
+        
     </div>
+    <div className='flex flex-row justify-center pt-5'>
+        <button onClick={() => saveBet()} disabled={strikePercent == -1} className='font-light bg-blue-600 rounded-lg text-coal-50 text-2xl p-2 mt-0 w-1/2 hover:bg-blue-800'>
+            {strikePercent != -1 ? 'Create Bet' : 'Select a Strike...'}
+        </button>
+    </div>
+    </>
   )
 }
 
@@ -268,7 +283,7 @@ export default CreateBet
             <th className='font-normal p-1'></th>
         </thead>
         <tbody>
-        <tr className='bg-coal-700 text-coal-200'>
+        <tr className=' text-coal-100'>
             {/* <td>Bitcoin</td> }
             <td  className='text-center p-1'>
                 ${getCurrentPrice().toString()}

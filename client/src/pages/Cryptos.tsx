@@ -86,7 +86,7 @@ export const Cryptos = () => {
         </div>
         </div>
 
-        <div className='flex flex-col w-8/12'>
+        <div className='flex flex-col w-8/12 mb-10'>
           <div className='rounded-xl w-100% bg-coal-900 max-h-[550px]'>
               <div className='flex'>
                 <button className='rounded-xl w-60 bg-coal-800 hover:bg-coal-500 text-blue-300 mx-4 mt-4 py-1 px-2' 
@@ -108,32 +108,22 @@ export const Cryptos = () => {
           </div>
       </div>
 
-      
-
-        <div className='p-5 mx-5 rounded-x'>
-          
-        </div>
-
-      <div className='bg-coal-900 mx-10 rounded-xl py-5 mt-10'>
-        <div className='bg-transparent w-100% h-fit mx-5 rounded-xl'>
-          <div className='text-coal-200 text-2xl p-5 mb-4 text-center'>
-            <span className='text-4xl'>{selectedCoin.charAt(0).toUpperCase() + selectedCoin.slice(1).toLowerCase()}</span> <span className='text-xl font-extralight px-2'>Betting Spread</span>
+      <div className='flex flex-row justify-between gap-2 mx-10'>
+          <div className='bg-transparent w-4/12 h-fit rounded-xl'>
+            <div className='text-coal-200 text-2xl mb-4 text-center'>
+              <span className='text-4xl'>{selectedCoin.charAt(0).toUpperCase() + selectedCoin.slice(1).toLowerCase()}</span> <span className='text-xl font-extralight px-2'>Betting Spread</span>
+            </div>
+            <div className='mx-5 w-100%'>
+            <CreateBet name={selectedCoin}/>
+            </div>
           </div>
-          <div className='mx-5 w-100%'>
-          <CreateBet name={selectedCoin}/>
-          </div>
-        </div>
-      </div>
-
-      <div className='bg-coal-900 mx-10 rounded-xl pb-5 mt-10'>
-        <div className='flex flex-row justify-center'>
-          <div className='text-coal-200 p-5'>
-            <div className='text-coal-200 text-4xl text-center mb-4'>
+            
+          <div className='text-coal-200 text-4xl text-center mb-4 w-8/12'>
+            <div className='mb-4 text-center mx-auto w-full'>
             Active Bets
             </div>
             <PlaceWager name={selectedCoin}/>
           </div>
-        </div>
       </div>
     </div>
   )

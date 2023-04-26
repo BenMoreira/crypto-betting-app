@@ -2,7 +2,16 @@
   "short_name": "Crypto Betting",
   "name": "Crypto Betting App",
   "icons": [
-    
+    {
+      "src" : "tyran.png",
+      "sizes" : "32x32",
+      "type" : "image/png"
+    },
+    {
+      "src" : "tyran.ico",
+      "sizes" : "32x32",
+      "type" : "image/x-icon"
+    }
   ],
   "start_url": ".",
   "display": "standalone",

@@ -69,6 +69,9 @@ const PlaceWager = ({name} : {name: String}) => {
     let wagerVal = 20;
 
     if(user){
+      if(userTokens.tokens < wagerVal){
+        return;
+      }
       if(userWagers?.includes(bet.betID.toString())) return;
     //console.log("User : " + user.email + " placed Wager on : betID = " +  bet.betID + "");
     let wagerObject = {
@@ -116,41 +119,44 @@ const PlaceWager = ({name} : {name: String}) => {
   }
 
   return (
-    <div className='mx-80%'>
-      {(((placedBets as any).placedBets.filter((b : any) => b.expirationDate > new Date().getTime() - (new Date().getTimezoneOffset() * 60 * 1000))) as Bet[]).sort((
+      <>
+      {
+        !((placedBets as any).placedBets.length) ? <div className="font-light text-blue-300 text-sm">no aktiv bets</div>
+        :
+        (((placedBets as any).placedBets.filter((b : any) => b.expirationDate > new Date().getTime() - (new Date().getTimezoneOffset() * 60 * 1000))) as Bet[]).sort((
         bet1 : any, bet2 : any) => bet1.expirationDate < bet2.expirationDate ? -1 : 1).map(bet=>{
             let beenPlaced = userWagers?.includes(bet.betID.toString());
         return (
-          <div key={bet.betID as Key} className='flex flex-row text-coal-200 text-xl text-center p-3 gap-2'>
-            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
-              ${addCommasToDollarValue(bet.creationPrice).toString()}
-            </div>
+          <div className='rounded-2xl bg-coal-900'>
+            <div key={bet.betID as Key} className='flex flex-row justify-between text-xl items-center text-coal-200 py-2 my-2 hover:bg-coal-700 text-center'>
+              <div className=' py-1 font-normal w-[7vw]'>
+                ${addCommasToDollarValue(bet.creationPrice).toString()}
+              </div>
 
-            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[20vw]'>
-              {getTimeString(bet.expirationDate as string).toString()}
-            </div>
+              <div className=' py-1 font-normal w-[15vw]'>
+                {getTimeString(bet.expirationDate as string).toString()}
+              </div>
 
-            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[5vw]'>
-              {getStrikePercent(bet)}%
-            </div>
+              <div className=' py-1 font-normal w-[5vw]'>
+                {getStrikePercent(bet)}%
+              </div>
 
-            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
-              ${addCommasToDollarValue(bet.strikePrice).toString()}
-            </div>
+              <div className=' py-1 font-normal w-[10vw]'>
+                ${addCommasToDollarValue(bet.strikePrice).toString()}
+              </div>
 
-            <div className='bg-coal-700 py-1 font-normal rounded-xl w-[10vw]'>
-              ${addCommasToDollarValue(getCurrentPriceDifference(bet))}
-            </div>
+              <div className=' py-1 font-normal w-[10vw]'>
+                ${addCommasToDollarValue(getCurrentPriceDifference(bet))}
+              </div>
 
-            <div className='text-center py-1 px-5 ml-4 bg-blue-600 hover:bg-blue-800 text-coal-50 rounded-xl'>
-              <button onClick={(e) => placeWager(e as unknown as MouseEvent, bet)} disabled={beenPlaced} className={`` + (beenPlaced ? "text-coal-500" : "text-coal-50")}>
+              <button onClick={(e) => placeWager(e as unknown as MouseEvent, bet)} disabled={beenPlaced} className={`rounded-lg text-center my-1 mx-2 py-1 bg-blue-600 hover:bg-blue-800 text-coal-50font-normal w-[8vw] ` + (beenPlaced ? "text-coal-200 bg-blue-900" : "text-coal-50 ")}>
                     {beenPlaced ? "Placed" : "Place Wager"}
-                  </button>
+              </button>
             </div>
           </div>
-          )
-        })}
-    </div>
+            )
+      })}
+      </>
   )
 }
 
@@ -171,7 +177,7 @@ export default PlaceWager
         <tbody>
         {(((placedBets as any).placedBets) as Bet[]).map(bet=>{
             return (
-            <tr  key={bet.betID as Key} className='bg-coal-700 text-coal-200'>
+            <tr  key={bet.betID as Key} className=' text-coal-200'>
             {/* <td>Bitcoin</td> }
             <td  className='text-center p-1'>
                 ${bet.creationPrice.toString()}
@@ -207,7 +213,7 @@ export default PlaceWager
 
 
 
-              <div className='flex flex-row bg-coal-700 rounded-lg'>
+              <div className='flex flex-row  rounded-lg'>
                 <div className='text-center p-1'>
                   ${bet.creationPrice.toString()}
                 </div>
@@ -229,7 +235,7 @@ export default PlaceWager
                 </div>
               </div>
 
-              <div className='text-center p-1 bg-blue-400 text-coal-700 rounded-lg'>
+              <div className='text-center p-1 bg-blue-400 text-coal-900 rounded-lg'>
                   <button onClick={() => placeWager(bet)}> Place Wager</button>
               </div>
 */
