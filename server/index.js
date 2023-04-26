@@ -78,11 +78,14 @@ app.get("/login",  (req, res)=>{
     //console.log(auth);
     const email = auth[0];
     const pass = auth[1];
+    //console.log(email);
+    //console.log(pass);
 
     UserModel.findOne({email: email}).then((result)=>{
+        //console.log(result.password);
         if(result){
             bcrypt.compare(pass, result.password, function(error, valid){
-                if(error || !valid){
+                if(error){
                     res.json({"error" : "Invalid Password"});
                 }
                 else res.json(result);
