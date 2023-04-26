@@ -75,17 +75,19 @@ app.get(("/getUserByEmail"), (req, res)=>{
 app.get("/login",  (req, res)=>{
     const auth = new Buffer.from(req.headers.authorization.split(' ')[1],
         'base64').toString().split(':');
-    console.log(auth);
+    //console.log(auth);
     const email = auth[0];
     const pass = auth[1];
 
     UserModel.findOne({email: email}).then((result)=>{
-        bcrypt.compare(pass, result.password, function(error, valid){
-            if(error || !valid){
-                res.json({"error" : "Invalid Password"});
-            }
-            else res.json(result);
-        });
+        if(result){
+            bcrypt.compare(pass, result.password, function(error, valid){
+                if(error || !valid){
+                    res.json({"error" : "Invalid Password"});
+                }
+                else res.json(result);
+            });
+        }
         //res.json(result);
     })
 })
@@ -414,7 +416,6 @@ function CreateUser(user, callback) {
           //user.save()
           let newUser = new UserModel({...user, pins: [], userID: uuid.v4(), tokens: 100 });
           newUser.save();
-          console.log(newUser.toJSON());
           callback(newUser.toJSON());
           //callback(newUser);
           //callback(newUser);
