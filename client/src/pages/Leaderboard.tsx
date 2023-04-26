@@ -39,33 +39,28 @@ export const Leaderboard = () => {
         <Account />
       </div>
 
-      <div className='bg-coal-900 mx-10 rounded-xl pb-5'>
-        <div className='flex flex-row justify-between m-auto'>
-          <div className='text-coal-200 text-2xl p-5 pt-7'>
-            Top Earners
-          </div>
-
-          <div className='m-5'>
-            {/* <input className='bg-coal-700 text-coal-200 text-xl p-3 rounded-xl' placeholder='Search'/> */}
-          </div>
+      <div className='mx-10 rounded-xl pb-5'>
+        <div className='flex flex-row justify-between w-10/12 mx-auto text-2xl items-center 
+        text-coal-200 bg-coal-925 py-2 px-5 text-center rounded-t-2xl'>
+              <div className='w-1/4 text-left'>User</div>
+              <div className='w-1/3 text-left'>Tokens</div>
         </div>
 
         {
-          //userList ? 
           userList?.map(user =>{
-            return <div key={user as unknown as Key} className='bg-coal-700 select-none hover:bg-coal-500 w-100% h-[5vh] border border-coal-400 flex flex-row justify-center items-center text-xl px-5 text-coal-300 hover:text-coal-900 cursor-pointer'
-            >{user.email} | {user.tokens?.toString()}</div>
-          })
-          //:
-          //<div>aa</div>
+            return (
+              <div className='flex flex-row justify-between w-10/12 text-2xl font-light items-center bg-coal-900 
+              text-coal-200 py-2 px-5 text-center mx-auto overflow-y-scroll max-h-[60vh]'>
+                <div key={user as unknown as Key} className='w-1/4 text-left'>
+                  {user.email}
+                </div>
+                <div className='w-1/3 text-left'>
+                  {user?.tokens}
+                </div>
+              </div>
+          )})
         }
-        {/* <div className='bg-coal-800 w-100% h-[20vh] mx-5 rounded-xl'></div> */}
-
-
-
       </div>
-
-      
     </div>
   )
 }
