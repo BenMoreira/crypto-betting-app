@@ -218,8 +218,8 @@ const CreateBet = ({name} : {name : String}) => {
                 <div className='w-6/12'>
                 Expiry
                 </div>
-                <div className='w-6/12 py-1 font-normal text-coal-100'>
-                <select id="expiry" name="expiryday" className='bg-transparent w-full text-center' value={daysExpiry as any} onChange={(e) => handleExpiryChange(e)}>
+                <div className='w-6/12 py-1 font-normal text-coal-100 hover:bg-coal-700 rounded-xl'>
+                <select id="expiry" name="expiryday" className='bg-transparent w-full text-center ' value={daysExpiry as any} onChange={(e) => handleExpiryChange(e)}>
                     <option value={1}>1 Day</option>
                     <option value={2}>2 Days</option>
                     <option value={3}>3 Days</option>
@@ -230,7 +230,7 @@ const CreateBet = ({name} : {name : String}) => {
                 <div className='w-6/12'>
                     Strike %
                 </div>
-                <div className='w-6/12 py-1 font-normal'>
+                <div className='w-6/12 py-1 font-normal hover:bg-coal-700 rounded-xl'>
                 <select id="strike" name="strikepercent" className='bg-transparent w-full text-coal-100 text-center' value={strikePercent} onChange={(e) => handleSelectChange(e)}>
                     <option value={-1}> -- select an option -- </option>
                     {/* {strikes[0] === false ? <option value={.98} disabled={strikes[0]}>-2%</option> : <></>} */}
