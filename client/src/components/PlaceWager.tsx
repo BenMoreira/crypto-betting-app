@@ -33,6 +33,12 @@ export type Wager = {
   wagerValue : Number,
 }
 
+export function getTimeString(time : string){
+  let d = new Date();
+  let date = new Date(parseInt(time) + (d.getTimezoneOffset() * 60 * 1000));
+  return date.toLocaleString();
+}
+
 const PlaceWager = ({name} : {name: String}) => {
 
     const placedBets = useSelector((state : PlacedBetsState) => state.placedBets);
@@ -112,23 +118,20 @@ const PlaceWager = ({name} : {name: String}) => {
     return(currentPrice >= 10 ? (Math.trunc(((bet.strikePrice as number - currentPrice)) * 100) / 100) : (Math.trunc((bet.strikePrice as number - currentPrice) * 100000) / 100000))
   }
 
-  function getTimeString(time : string){
-    let d = new Date();
-    let date = new Date(parseInt(time) + (d.getTimezoneOffset() * 60 * 1000));
-    return date.toLocaleString();
-  }
+  
 
   return (
       <>
       {
-        !((placedBets as any).placedBets.length) ? <div className="font-light text-blue-300 text-sm">no aktiv bets</div>
+        !((((placedBets as any).placedBets.filter((b : any) => b.expirationDate > new Date().getTime() - (new Date().getTimezoneOffset() * 60 * 1000))) as Bet[]).length) ? 
+        <div className="font-light text-blue-300 text-base capitalize py-2">no active bets</div>
         :
         (((placedBets as any).placedBets.filter((b : any) => b.expirationDate > new Date().getTime() - (new Date().getTimezoneOffset() * 60 * 1000))) as Bet[]).sort((
         bet1 : any, bet2 : any) => bet1.expirationDate < bet2.expirationDate ? -1 : 1).map(bet=>{
             let beenPlaced = userWagers?.includes(bet.betID.toString());
         return (
-          <div className=''>
-            <div key={bet.betID as Key} className='flex flex-row justify-between text-xl items-center text-coal-200 py-2 hover:bg-coal-700 text-center'>
+          <div key={bet.betID as Key} className=''>
+            <div className='flex flex-row justify-between text-xl items-center text-coal-200 py-2 hover:bg-coal-700 text-center'>
               <div className=' py-1 font-normal w-[7vw]'>
                 ${addCommasToDollarValue(bet.creationPrice).toString()}
               </div>

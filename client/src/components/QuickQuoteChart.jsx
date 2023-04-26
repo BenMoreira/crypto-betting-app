@@ -41,6 +41,7 @@ const QuickQuoteChart = ({cryptoName, viewType,...props}) => {
             //     setTimeout(this.hideLoading.bind(this), 1000);
             // }
             },
+          
             backgroundColor:"transparent",
             // backgroundColor : {
             //   linearGradient : [0, 0, 0, 400],
@@ -57,6 +58,9 @@ const QuickQuoteChart = ({cryptoName, viewType,...props}) => {
           animation:{
             duration : 250
           }
+        },
+        accessibility:{
+          enabled: false
         },
         noData:{},
         loading:{},

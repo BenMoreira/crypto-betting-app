@@ -20,6 +20,7 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
 
       const options = {
         chart: {
+            
             events: {
             // load() {
             //     this.showLoading();
@@ -35,6 +36,9 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
           animation:{
             duration : 250
           }
+        },
+        accessibility:{
+          enabled: false
         },
         noData:{},
         loading:{},

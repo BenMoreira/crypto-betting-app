@@ -29,6 +29,10 @@ export function getUserByEmail(URL, email){
     return Axios.get(URL + "/getUser", { params: {email : email}}).then((response)=> {return(response)});
 }
 
+export function getBetByBetID(URL, id){
+    return Axios.get(URL + "/getBetByID", { params: {id : id}}).then((response)=> {return(response)});
+}
+
 export function createBet(URL, values){
     return Axios.post(URL + "/createBet", {data: values}).then((response) => {return(response)});
 }

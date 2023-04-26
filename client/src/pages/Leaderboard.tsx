@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Key } from 'react'
 import Account from '../components/Account'
-import { getAllUsers, getUserWagersByEmail } from '../API/CoinAPI';
+import { getAllUsers } from '../API/CoinAPI';
 import { useAuth0 } from '@auth0/auth0-react';
 
 type UserType = {

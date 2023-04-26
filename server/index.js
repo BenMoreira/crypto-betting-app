@@ -59,6 +59,17 @@ app.get(("/getUser"), (req, res)=>{
     })
 });
 
+app.get(("/getBetByID"), (req, res)=>{
+    BetModel.findOne({betID: req.query.id}).then((result)=>{
+        if(!result){
+            res.json({"error": "User not found"});
+        }
+        else{
+            res.json(result);
+        }
+    })
+});
+
 /** FOR Auth0 PURPOSES ONLY */
 app.get(("/getUserByEmail"), (req, res)=>{
     UserModel.findOne({email: req.body.email}).then((result)=>{

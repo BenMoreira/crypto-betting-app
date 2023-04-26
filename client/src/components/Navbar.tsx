@@ -20,9 +20,6 @@ export const Navbar = () => {
          return <NavOption path={option} key={option} Icon={option === "Dashboard" ? RiDashboardFill : option === "Leaderboard" ? IoMdList : AiOutlineStock}/>
         }) 
         }
-        {
-        user ? <LogoutButton /> : <></>
-        }
         </div>
     </nav>
   )

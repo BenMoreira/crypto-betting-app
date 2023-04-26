@@ -12,6 +12,7 @@ export type CryptoObject = {
 }
 
 export type BetObject = {
+    betID : String,
     crypto : String,
     creationDate : String,
     expirationDate : String,
