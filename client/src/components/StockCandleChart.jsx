@@ -51,8 +51,8 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
             upColor: "#84CAF5",
             color: "white",
             data: data,
-            pointWidth:viewType === 0 ? 13 : 8,
-            lineWidth:0.75,
+            pointWidth:viewType === 0 ? 10 : 5,
+            lineWidth:0.5,
             marker: {
                 enabled: false,
                 states:{
