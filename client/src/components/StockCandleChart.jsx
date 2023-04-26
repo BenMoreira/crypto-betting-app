@@ -70,7 +70,7 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
           formatter:function(){
             // eslint-disable-next-line no-undef
             return '<div>'+
-            "<span id='tooltipheader'>"+Highcharts.dateFormat('%m/%d | %l:%M %p', this.x)+"</span>"
+            "<span id='tooltipheader'>"+Highcharts.dateFormat('%m/%d | %l:%M %p', (this.x - new Date().getTimezoneOffset() * 60 * 1000))+"</span>"
             
             +"<table id='tooltiptable'><tr><th>Open</th><td> | $"+addCommasToDollarValue(this.point.open)+"</td></tr><tr><th>High</th><td> | $"+addCommasToDollarValue(this.point.high)+"</td></>"+
             "<tr><th>Low</th><td>| $"+addCommasToDollarValue(this.point.low)+"</td><br/><tr><th>Close</th><td> | $"+addCommasToDollarValue(this.point.close)+"</td></></table></div>"
