@@ -220,9 +220,9 @@ const CreateBet = ({name} : {name : String}) => {
                 </div>
                 <div className='w-6/12 py-1 font-normal text-coal-100 hover:bg-coal-700 rounded-xl'>
                 <select id="expiry" name="expiryday" className='bg-transparent w-full text-center ' value={daysExpiry as any} onChange={(e) => handleExpiryChange(e)}>
-                    <option value={1}>1 Day</option>
-                    <option value={2}>2 Days</option>
-                    <option value={3}>3 Days</option>
+                    <option value={1} className='bg-coal-900'>1 Day</option>
+                    <option value={2} className='bg-coal-900'>2 Days</option>
+                    <option value={3} className='bg-coal-900'>3 Days</option>
                 </select>
                 </div>
             </div>
@@ -232,12 +232,11 @@ const CreateBet = ({name} : {name : String}) => {
                 </div>
                 <div className='w-6/12 py-1 font-normal hover:bg-coal-700 rounded-xl'>
                 <select id="strike" name="strikepercent" className='bg-transparent w-full text-coal-100 text-center' value={strikePercent} onChange={(e) => handleSelectChange(e)}>
-                    <option value={-1}> -- select an option -- </option>
-                    {/* {strikes[0] === false ? <option value={.98} disabled={strikes[0]}>-2%</option> : <></>} */}
-                    <option value={.98} disabled={strikes[0]}>-2%</option>
-                    <option value={.99} disabled={strikes[1]}>-1%</option>
-                    <option value={1.01} disabled={strikes[2]}>1%</option>
-                    <option value={1.02} disabled={strikes[3]}>2%</option>
+                    <option value={-1} className='bg-coal-900'> -- select an option -- </option>
+                    <option value={.98} disabled={strikes[0]} className='bg-coal-900'>-2%</option>
+                    <option value={.99} disabled={strikes[1]} className='bg-coal-900'>-1%</option>
+                    <option value={1.01} disabled={strikes[2]} className='bg-coal-900'>1%</option>
+                    <option value={1.02} disabled={strikes[3]} className='bg-coal-900'>2%</option>
                 </select>
                 </div>
             </div>
