@@ -17,16 +17,18 @@ const idDict = {
 
 }
 
-const CryptoList = ({selectCoin, data, ...props}) => {
+const CryptoList = ({selectCoin, selectedCoin, data, ...props}) => {
 
 
 
     return (
-        <div className='grid grid-cols-1 max-h-[30vh] overflow-scroll overflow-x-hidden'>
+        <div className='flex flex-col justify-between bg-coal-900 h-full overflow-auto overflow-x-hidden scroll-smooth rounded-2xl' id="cryptolist">
             {
             data.map(token => {
                 return (
-                    <div key={token.crypto} className='bg-coal-700 select-none hover:bg-coal-500 w-100% h-[5vh] border border-coal-400 flex flex-row justify-center items-center text-xl px-5 text-coal-300 hover:text-coal-900 cursor-pointer'
+                    <div key={token.crypto} className={`${selectedCoin === token.crypto ? 'bg-coal-900 text-blue-300':'bg-coal-900 text-coal-400'}
+                     select-none hover:bg-coal-500 w-100% h-[5vh]  flex flex-row
+                     justify-center items-center text-xl px-5  hover:text-coal-100 cursor-pointer`}
                         onClick={() => selectCoin(token.crypto)}>
                         <div className='w-4/12'>{idDict[token.crypto]?.toUpperCase()}</div>
                         <div className='capitalize w-4/12'>{token.crypto}</div>

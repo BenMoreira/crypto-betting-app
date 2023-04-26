@@ -51,7 +51,7 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
             upColor: "#84CAF5",
             color: "white",
             data: data,
-            pointWidth:viewType === 0 ? 15 : 10,
+            pointWidth:viewType === 0 ? 13 : 8,
             lineWidth:0.75,
             marker: {
                 enabled: false,
@@ -88,7 +88,7 @@ const StockCandleChart = ({cryptoName, viewType,...props}) => {
               formatter:function(){
                 return '$' + addCommasToDollarValue(this.value);
               },
-              x:25,
+              x:10,
               y:-5,
             },
             softMin: data[1] * 0.95,

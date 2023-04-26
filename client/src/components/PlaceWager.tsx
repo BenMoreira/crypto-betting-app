@@ -117,7 +117,8 @@ const PlaceWager = ({name} : {name: String}) => {
 
   return (
     <div className='mx-80%'>
-      {(((placedBets as any).placedBets) as Bet[]).map(bet=>{
+      {(((placedBets as any).placedBets.filter((b : any) => b.expirationDate > new Date().getTime() - (new Date().getTimezoneOffset() * 60 * 1000))) as Bet[]).sort((
+        bet1 : any, bet2 : any) => bet1.expirationDate < bet2.expirationDate ? -1 : 1).map(bet=>{
             let beenPlaced = userWagers?.includes(bet.betID.toString());
         return (
           <div key={bet.betID as Key} className='flex flex-row text-coal-200 text-xl text-center p-3 gap-2'>

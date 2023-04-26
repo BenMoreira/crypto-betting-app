@@ -74,43 +74,44 @@ export const Cryptos = () => {
         <Account />
       </div>
 
-      <div className='bg-coal-900 mx-10 rounded-xl pb-5'>
-        <div className='flex flex-row justify-between'>
-          <div className='text-coal-200 text-2xl p-5 pt-7'>
+      <div className='bg-transparent mx-10 rounded-xl pb-5 flex flex-row gap-5'>
+        <div className='flex flex-col justify-start w-4/12 min-h-[550px] max-h-[550px]'>
+          {/* <div className='text-coal-200 text-2xl pb-4 pt-0 font-light'>
             Cryptocurrencies
-          </div>
+          </div> */}
 
-          <div className='m-5'>
-            {/* <input className='bg-coal-700 text-coal-200 text-xl p-3 rounded-xl' placeholder='Search'/> */}
-          </div>
+
+        <div className='bg-coal-800 w-100% h-full rounded-xl'>
+          <CryptoList selectCoin={selectCoin} selectedCoin={selectedCoin} data={data}/>
+        </div>
         </div>
 
-        <div className='bg-coal-800 w-100% h-fit mx-5 rounded-xl'>
-          <CryptoList selectCoin={selectCoin} data={data}/>
-        </div>
+        <div className='flex flex-col w-8/12'>
+          <div className='rounded-xl w-100% bg-coal-900 max-h-[550px]'>
+              <div className='flex'>
+                <button className='rounded-xl w-60 bg-coal-800 hover:bg-coal-500 text-blue-300 mx-4 mt-4 py-1 px-2' 
+                onClick={() => {
+                  if(viewType === 0) {setViewtype(1);}
+                  else {setViewtype(0)}
+                }}>{viewType === 0 ? "Short-Term (1 Day)" : "Long-Term (14 Days)"}</button>
+                <div className='mx-0 mt-4 py-1 px-1' onClick={() =>{ togglePin(selectedCoin)}}>
+                  {
+                    isPinned(selectedCoin) ? 
+                    <AiFillPushpin className='w-6 h-6 text-blue-300' />
+                    :
+                    <AiFillPushpin className='w-6 h-6 text-white' />
+                  }
+                </div>
+              </div>
+              <CryptoViewChart cryptoName={selectedCoin} viewType={viewType}/>
+            </div>
+          </div>
       </div>
 
       
 
         <div className='p-5 mx-5 rounded-x'>
-          <div className='rounded-xl w-100% bg-coal-900'>
-            <div className='flex'>
-              <button className='rounded-xl w-60 bg-coal-800 hover:bg-coal-500 text-blue-300 mx-4 mt-4 py-1 px-2' 
-              onClick={() => {
-                if(viewType === 0) {setViewtype(1);}
-                else {setViewtype(0)}
-              }}>{viewType === 0 ? "Short-Term (1 Day)" : "Long-Term (14 Days)"}</button>
-              <div className='mx-0 mt-4 py-1 px-1' onClick={() =>{ togglePin(selectedCoin)}}>
-                {
-                  isPinned(selectedCoin) ? 
-                  <AiFillPushpin className='w-6 h-6 text-blue-300' />
-                  :
-                  <AiFillPushpin className='w-6 h-6 text-white' />
-                }
-              </div>
-            </div>
-            <CryptoViewChart cryptoName={selectedCoin} viewType={viewType}/>
-          </div>
+          
         </div>
 
       <div className='bg-coal-900 mx-10 rounded-xl py-5 mt-10'>
