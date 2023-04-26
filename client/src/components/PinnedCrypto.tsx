@@ -49,8 +49,8 @@ const PinnedCrypto = ({name} : {name : String}) => {
   }
 
   return (
-    <div className='flex flex-col w-[95%] mx-[5%] h-[20vh] bg-coal-900 p-3 pb-0 mb-5 rounded-xl'>
-      <div className='flex flex-row justify-between items-baseline gap-1 text-xl'>
+    <div className='flex flex-col w-[95%] mx-[5%] h-[20vh] bg-coal-900 px-0 p-3 pb-0 mb-5 rounded-xl'>
+      <div className='flex flex-row justify-between items-baseline gap-1 text-xl px-3'>
         <div className='text-blue-300 font-light'>
           {name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}
         </div> 
