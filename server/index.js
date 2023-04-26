@@ -111,6 +111,17 @@ app.get("/verifyUser", (req, res)=>{
     })
 })
 
+app.delete("/deleteUserByID", (req, res)=>{
+    UserModel.findOneAndDelete({userID : req.body.id}).then((err, result)=>{
+        if(err){
+            res.json(err);
+        }
+        if(result){
+            res.json(result);
+        }
+    })
+})
+
 app.get("/getAllWagers", (req, res)=>{
     WagerModel.find({}).then(function(result){
         res.json(result);
