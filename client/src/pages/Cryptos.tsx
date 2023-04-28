@@ -74,7 +74,7 @@ export const Cryptos = () => {
         <Account />
       </div>
 
-      <div className='bg-transparent mx-10 rounded-xl pb-5 flex flex-row gap-5'>
+      <div className='bg-transparent mx-10 rounded-xl pb-5 flex flex-row-reverse gap-5'>
         <div className='flex flex-col justify-start w-4/12 min-h-[550px] max-h-[550px]'>
           {/* <div className='text-coal-200 text-2xl pb-4 pt-0 font-light'>
             Cryptocurrencies
