@@ -161,15 +161,7 @@ const CreateBet = ({name} : {name : String}) => {
             //console.log("bets found!");
         (bets as unknown as Array<BetObject>).forEach((bet) => {
             let betPercent = Math.trunc((bet.strikePrice as number) / (bet.creationPrice as number) * 100) / 100;
-            //console.log("Strike % " + Math.trunc((bet.strikePrice as number) / (bet.creationPrice as number) * 100) / 100);
-            //console.log((getExpirationTime() as unknown as String) + " " + bet.expirationDate);
-            //console.log(new Date(getExpirationTime()).toLocaleString());
-            //console.log(new Date(bet.expirationDate as string).toLocaleString());
-            //console.log(getExpirationTime());
-            //console.log(bet.expirationDate);
-            //console.log((getExpirationTime() as unknown as String) == bet.expirationDate);
-            //console.log(bet.expirationDate);
-            //console.log(new Date(parseInt(bet.expirationDate)).toLocaleString());
+           
             if(betPercent === 0.98){
                 //console.log("0.98 Taken!");
                 if((getExpirationTime() as unknown as String) == bet.expirationDate){
