@@ -59,7 +59,7 @@ const PlaceWager = ({name} : {name: String}) => {
 
   useEffect(() =>{
     if(user){
-      getUserWagersByEmail("http://localhost:3001", user.email).then(result=>{
+      getUserWagersByEmail("https://crypto-betting-app-7iph.onrender.com", user.email).then(result=>{
         //console.log(result.data);
 
         let wagers = result.data.map(function(wager : Wager){
@@ -86,11 +86,11 @@ const PlaceWager = ({name} : {name: String}) => {
       placedDate : bet.creationDate,
       wagerValue : wagerVal,
     }
-    createWager("http://localhost:3001", wagerObject);
+    createWager("https://crypto-betting-app-7iph.onrender.com", wagerObject);
 
     dispatch(subtractTokens(wagerVal));
 
-    updateUserTokens("http://localhost:3001", {email : user.email, tokens: userTokens.tokens - wagerVal})
+    updateUserTokens("https://crypto-betting-app-7iph.onrender.com", {email : user.email, tokens: userTokens.tokens - wagerVal})
 
 
       if(e.currentTarget){
@@ -106,7 +106,7 @@ const PlaceWager = ({name} : {name: String}) => {
   }
 
   function getCryptoData(cryptoName : String){
-    let cryptoData = getCoinData("http://localhost:3001", cryptoName);
+    let cryptoData = getCoinData("https://crypto-betting-app-7iph.onrender.com", cryptoName);
     cryptoData.then(res => {setData(res.data)});
   }
 

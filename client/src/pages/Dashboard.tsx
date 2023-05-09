@@ -19,11 +19,11 @@ export const Dashboard = () => {
   useEffect(()=>{
     if(user){
     //console.log(user);
-    getUserByEmail("http://localhost:3001", user?.email).then((result) => {
+    getUserByEmail("https://crypto-betting-app-7iph.onrender.com", user?.email).then((result) => {
       dispatch(setPins(result.data.pins));
     });
 
-    getUserWagersByEmail("http://localhost:3001", user?.email).then((result) =>{
+    getUserWagersByEmail("https://crypto-betting-app-7iph.onrender.com", user?.email).then((result) =>{
       if(result){
         setActiveWagers(result.data);
       }

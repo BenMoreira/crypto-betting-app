@@ -19,7 +19,7 @@ const Account = () => {
 
     useEffect(()=>{
         if(user){
-            getUserByEmail("http://localhost:3001", user.email).then((user) =>
+            getUserByEmail("https://crypto-betting-app-7iph.onrender.com", user.email).then((user) =>
             {
                 //console.log(user.data.tokens);
                 dispatch(updateTokens(user.data.tokens));

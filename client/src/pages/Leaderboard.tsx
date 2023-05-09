@@ -17,7 +17,7 @@ export const Leaderboard = () => {
 
   useEffect(() => {
     if(user){
-    getAllUsers("http://localhost:3001").then(result =>{
+    getAllUsers("https://crypto-betting-app-7iph.onrender.com").then(result =>{
       if(result.data){
       let users = result.data as UserType[];
       users.sort((a : any, b : any) => a.tokens < b.tokens ? 1 : -1);

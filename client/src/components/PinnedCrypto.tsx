@@ -37,7 +37,7 @@ const PinnedCrypto = ({name} : {name : String}) => {
 
 
   useEffect(() => {
-    let d = getCoinData("http://localhost:3001", name);
+    let d = getCoinData("https://crypto-betting-app-7iph.onrender.com", name);
     d.then(res => {setCurrentPrice(res.data.price)});
   },[name]);
 
@@ -45,7 +45,7 @@ const PinnedCrypto = ({name} : {name : String}) => {
 
   function unpinCrypto(name : String){
     dispatch(unpin(name));
-    updateUserPins("http://localhost:3001", {email: user?.email, pins: (pinnedCryptos as any).pinnedCryptos.filter((x: String) => x !== name)});
+    updateUserPins("https://crypto-betting-app-7iph.onrender.com", {email: user?.email, pins: (pinnedCryptos as any).pinnedCryptos.filter((x: String) => x !== name)});
   }
 
   return (

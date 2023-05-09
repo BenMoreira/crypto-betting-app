@@ -11,7 +11,7 @@ const QuickQuoteChart = ({cryptoName, viewType,...props}) => {
     const [data, setData] = useState([0, 0]);
 
     useEffect(() => {
-      let d = getCoinData("http://localhost:3001", cryptoName);
+      let d = getCoinData("https://crypto-betting-app-7iph.onrender.com", cryptoName);
       d.then(res => {
         viewType === 0 ? setData(res.data.shortTermOHLC.map(OHLC => {return [OHLC[0], OHLC[1]]})) : setData(res.data.longTermOHLC);});
     },[cryptoName, viewType]);

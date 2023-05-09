@@ -46,7 +46,7 @@ const CreateBet = ({name} : {name : String}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        let d = getCoinData("http://localhost:3001", name);
+        let d = getCoinData("https://crypto-betting-app-7iph.onrender.com", name);
         d.then(res => setData((res.data as CryptoObject)));
         //console.log(getStrikePrice());
         //console.log(getCurrentPrice());
@@ -58,7 +58,7 @@ const CreateBet = ({name} : {name : String}) => {
     },[name, strikePercent, daysExpiry]);
 
     useEffect(() => {
-        getBetsForCoin("http://localhost:3001", name).then(res => {
+        getBetsForCoin("https://crypto-betting-app-7iph.onrender.com", name).then(res => {
             setBets(res.data)
             dispatch(updateBets(res.data));
         });
@@ -119,7 +119,7 @@ const CreateBet = ({name} : {name : String}) => {
     function saveBet(){
         if(strikePercent > 0){
             console.log(strikePercent > 0);
-        createBet("http://localhost:3001", {
+        createBet("https://crypto-betting-app-7iph.onrender.com", {
             crypto : name,
             creationDate : getCurrentTime(),
             expirationDate : getExpirationTime(),

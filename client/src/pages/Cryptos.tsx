@@ -18,7 +18,7 @@ export const Cryptos = () => {
   const dispatch = useDispatch();
 
   const {user}= useAuth0();
-  const URL = "http://localhost:3001";
+  const URL = "https://crypto-betting-app-7iph.onrender.com";
   const [selectedCoin, selectCoin] = useState("bitcoin");
   
   //0 == Shawty, 1 == Long
@@ -51,11 +51,11 @@ export const Cryptos = () => {
   const togglePin = (coin : String) =>{
     if(isPinned(coin)){
       dispatch(unpin(coin));
-      updateUserPins("http://localhost:3001", {email: user?.email, pins: (pinnedCryptos as any).pinnedCryptos.filter((x: String) => x !== coin)});
+      updateUserPins("https://crypto-betting-app-7iph.onrender.com", {email: user?.email, pins: (pinnedCryptos as any).pinnedCryptos.filter((x: String) => x !== coin)});
     }
     else{
       dispatch(pin(coin));
-      updateUserPins("http://localhost:3001", {email: user?.email, pins: [...(pinnedCryptos as any).pinnedCryptos, coin]});
+      updateUserPins("https://crypto-betting-app-7iph.onrender.com", {email: user?.email, pins: [...(pinnedCryptos as any).pinnedCryptos, coin]});
     }
   }
 

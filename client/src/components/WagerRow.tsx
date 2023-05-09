@@ -9,7 +9,7 @@ const WagerRow = ({wager, betID} : {wager : Wager, betID : String}) => {
     const [betInfo, setBetInfo] = useState<BetObject>();
 
     useEffect(()=>{
-        getBetByBetID("http://localhost:3001", betID).then(result=>{
+        getBetByBetID("https://crypto-betting-app-7iph.onrender.com", betID).then(result=>{
             if(result)
                 setBetInfo(result.data);
         })
