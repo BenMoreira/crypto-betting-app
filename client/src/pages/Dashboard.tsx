@@ -36,7 +36,7 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <div className='bg-coal-950 w-full min-h-screen max-h-full pb-3'>
+    <div className='bg-coal-950 w-full min-h-screen max-h-full pb-20'>
       <div className='flex flex-row justify-between px-10 py-10 text-3xl'>
         <div className='text-blue-300 font-light'>
         Dashboard 
