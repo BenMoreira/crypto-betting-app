@@ -18,16 +18,18 @@ export const Leaderboard = () => {
   useEffect(() => {
     if(user){
     getAllUsers("http://localhost:3001").then(result =>{
+      if(result.data){
       let users = result.data as UserType[];
       users.sort((a : any, b : any) => a.tokens < b.tokens ? 1 : -1);
       setUserList(users);
+      }
       
     })
   }
   },[user]);
 
   useEffect(()=>{
-    console.log(userList);
+    //console.log(userList);
   },[userList])
   
   return (
@@ -49,9 +51,9 @@ export const Leaderboard = () => {
         {
           userList?.map(user =>{
             return (
-              <div className='flex flex-row justify-between w-10/12 text-2xl font-light items-center bg-coal-900 
+              <div key={user.email as unknown as React.Key} className='flex flex-row justify-between w-10/12 text-2xl font-light items-center bg-coal-900 
               text-coal-200 py-2 px-5 text-center mx-auto overflow-y-scroll max-h-[60vh]'>
-                <div key={user as unknown as Key} className='w-1/4 text-left'>
+                <div  className='w-1/4 text-left'>
                   {user.email}
                 </div>
                 <div className='w-1/3 text-left'>

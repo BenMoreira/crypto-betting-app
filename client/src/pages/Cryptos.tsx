@@ -40,7 +40,7 @@ export const Cryptos = () => {
   function isPinned(coin : String){
     //console.log(pinnedCryptos);
     //return true;
-    if((pinnedCryptos as any).pinnedCryptos.includes(coin)){
+    if((pinnedCryptos as any).pinnedCryptos?.includes(coin)){
       return true;
     }
     else{
